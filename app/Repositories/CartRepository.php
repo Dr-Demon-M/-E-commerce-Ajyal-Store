@@ -1,0 +1,78 @@
+<?php
+
+
+namespace App\Repositories;
+
+use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
+
+class CartRepository  implements CartRepositoryInterface
+{
+
+    protected $item;
+
+    public function __construct()
+    {
+        $this->item = collect([]);
+    }
+
+    public function get(): Collection
+    {
+        if ($this->item->isEmpty()) {
+            $this->item = Cart::with('product')->get();
+        }
+        return $this->item;
+    }
+
+    public function add(Product $product, $quantity = 1)
+    {
+        $cart = Cart::where('product_id', $product->id)
+            ->first();
+
+        if ($cart) {
+            $cart->increment('quantity', $quantity);
+            return $cart->refresh();
+        }
+
+        return $new = Cart::create([
+            'cookie_id' => Cart::getCookie(),
+            'user_id' => Auth::id(),
+            'product_id' => $product->id,
+            'quantity' => $quantity ?? 1,
+        ]);
+        $this->get()->push($new);
+    }
+
+    public function update($id, $quantity)
+    {
+        Cart::where('id', '=', $id)
+            ->update([
+                'quantity' => $quantity
+            ]);
+    }
+
+    public function delete($id)
+    {
+        Cart::where('id', '=', $id)
+            ->delete();
+    }
+
+    public function empty()
+    {
+        Cart::query()->delete();
+    }
+
+    public function total(): float
+    {
+        /*return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
+            ->selectRaw('SUM(products.price * carts.quantity) as total')
+            ->value('total');*/
+        return $this->get()->sum(function ($item) {
+            return $item->quantity * $item->product->price;
+        });
+    }
+}
