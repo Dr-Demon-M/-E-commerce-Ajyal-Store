@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\role;
 use App\Models\RoleAbility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -14,6 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Role::class);
         $roles = role::paginate();
         return view('dashboard.roles.index', compact('roles'));
     }
@@ -23,6 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
         return view('dashboard.roles.create', [
             'role' => new role(),
             'role_ability' => []
@@ -34,6 +37,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Role::class);
         $request->validate([
             'name' => 'required|string|max:255',
             'abilities' => 'required|array',
@@ -52,8 +56,9 @@ class RoleController extends Controller
      */
     public function edit(role $role)
     {
+        $this->authorize('update', Role::class);
         $role_ability = $role->abilities->pluck('type', 'ability')->toArray();
-        return view('dashboard.roles.edit', compact('role','role_ability'));
+        return view('dashboard.roles.edit', compact('role', 'role_ability'));
     }
 
     /**
@@ -61,6 +66,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, role $role)
     {
+        $this->authorize('update', Role::class);
         $request->validate([
             'name' => 'required|string|max:255',
             'abilities' => 'required|array',
@@ -75,6 +81,7 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete', Role::class);
         role::destroy($id);
         return redirect()->route('roles.index')->with('delete', 'Role deleted successfully.');
     }

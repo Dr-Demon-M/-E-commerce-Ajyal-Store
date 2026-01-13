@@ -20,7 +20,7 @@ Route::middleware('auth:admin,web')->prefix('admin/dashboard')->group(function (
     // Route::get('/dashboard/index',[DashboardController::class, 'index']);
     Route::get('/', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
 
-    Route::middleware('ability.auto')->group(function () { // should be auth and guard should be admin
+    Route::middleware(/*'ability.auto'*/'')->group(function () { // should be auth and guard should be admin
         // Category
         Route::resource('/categories', CategoriesController::class);
         Route::get('/categories/trash', [CategoriesController::class, 'showTrashed'])->name('categories.trash');

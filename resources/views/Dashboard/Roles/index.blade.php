@@ -4,12 +4,11 @@
     <div class="d-flex align-items-center justify-content-between w-100">
         <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-folder-open mr-2 text-primary"></i>Roles Management</h4>
         <div class="btn-group">
-            <a href="{{ route('roles.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
-                <i class="fas fa-plus mr-1"></i> Create
-            </a>
-            <a href="#" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
-                <i class="fas fa-trash-alt mr-1"></i> Trash
-            </a>
+            @can('create', App\Models\Role::class)
+                <a href="{{ route('roles.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
+                    <i class="fas fa-plus mr-1"></i> Create
+                </a>
+            @endcan
         </div>
     </div>
 @endsection
@@ -32,6 +31,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Created Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,10 +46,13 @@
                                 </td>
                                 <td class="text-right pr-4">
                                     <div class="btn-group">
+                                        @can('update', App\Models\Role::class)
                                             <a href="{{ route('roles.edit', $role->id) }}"
                                                 class="btn btn-sm btn-white text-primary border shadow-none" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
+                                        @endcan
+                                        @if (Auth::user()->can('roles.destroy'))
                                             <form action="{{ route('roles.destroy', $role->id) }}" method="post"
                                                 onsubmit="return confirm('Move to trash?')"> {{-- js condition to confirm delete --}}
                                                 @csrf
@@ -60,6 +63,7 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

@@ -14,6 +14,7 @@ class Side extends Component
 
     public function __construct()
     {
+        // $this->items = config('side');
         $this->items = $this->prepareItems(config('side'));
         $this->active = Route::currentRouteName();
     }
@@ -27,7 +28,7 @@ class Side extends Component
     {
         $user = auth()->user();
         foreach ($items as $key => $item) {
-            if (isset($item['ability']) && !$user->can($item['ability'])) {
+            if (isset($item['ability']) && !$user->hasAbilities($item['ability'])) {
                 unset($items[$key]);
             }
         }
