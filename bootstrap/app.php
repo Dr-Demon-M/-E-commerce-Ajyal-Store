@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AbilityMiddleware;
 use App\Http\Middleware\CheckUserType;
 use App\Http\Middleware\MarkNotificationsAsRead;
 use App\Http\Middleware\SetAppLocale;
@@ -20,13 +21,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'checkUserType' => CheckUserType::class,
+            'checkUserType'           => CheckUserType::class,
             'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
             'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
             'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
-            'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
-
+            'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+            'ability.auto'            => AbilityMiddleware::class,
         ]);
         $middleware->web([
             UserActiveAt::class, // route in web تشتغل علي طول مع اي 

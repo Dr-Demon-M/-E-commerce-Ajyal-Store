@@ -5,23 +5,29 @@ return [
         'icon' => 'far fa-circle nav-icon',
         'route' => 'dashboard',
         'title' => 'Dashboard',
-        'ability' => 'dashboard.view', 
     ],
     [
         'icon' => 'far fa-circle nav-icon',
         'route' => 'categories.index',
         'title' => 'Categories',
-        'ability' => 'categories.view',
+        'ability' => 'categories.index',
     ],
     [
         'icon' => 'far fa-circle nav-icon',
         'route' => 'products.index',
         'title' => 'Products',
-        'ability' => 'products.view',
+        'ability' => 'products.index',
     ],
     [
         'icon' => 'far fa-circle nav-icon',
         'route' => 'stores.index',
         'title' => 'Stores',
+        'ability' => 'stores.index',
+    ],
+    [
+        'icon' => 'far fa-circle nav-icon',
+        'route' => 'roles.index',
+        'title' => 'Roles', 
+        'ability' => 'roles.index',
     ]
 ];

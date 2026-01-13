@@ -47,10 +47,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $options = $this->options;
         $product = new Product();
         $categories = Category::all();
         $stores = Store::all();
-        return view('Dashboard.Products.create', compact('product', 'stores', 'categories'));
+        return view('Dashboard.Products.create', compact('product', 'stores', 'categories', 'options'));
     }
 
     /**

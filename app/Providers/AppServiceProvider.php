@@ -30,28 +30,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('dashboard.view', function ($user) {
-            return true;
-        });
-        Gate::define('categories.view', function ($user) {
-            return true;
-        });
-        Gate::define('categories.edit', function ($user) {
-            return true;
-        });
-        Gate::define('categories.create', function ($user) {
-            return true;
-        });
-        Gate::define('categories.delete', function ($user) {
-            return false;
-        });
-        Gate::define('products.view', function ($user) {
-            return true;
-        });
-        Gate::define('stores.view', function ($user) {
-            return true;
-        });
+        // Gate::define('dashboard.view', function ($user) {
+        //     return true;
+        // });
 
+        foreach (config('abilities') as $code => $label) {
+            Gate::define($code, function ($user) use ($code) {
+                return $user->hasAbilities($code); // hasAbilities from HasRole trait in concerns
+            });
+        }   
         Paginator::useBootstrapFive(); // to use paginate Style
         // View::share('key', 'value'); to share data for all views
     }

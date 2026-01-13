@@ -27,6 +27,7 @@
                         @csrf
                         @include('Dashboard.products._form', [
                             'button_label' => 'Add Product',
+                            'options' => $options,
                             ])
                 </form>
             </div>
