@@ -16,16 +16,18 @@
 
     @section('content')
         <div class="container-fluid mt-4">
-            <form action="{{ route('dashboard.profile.edit') }}" method="post">
+            <form action="{{ route('dashboard.profile.edit') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <x-alert />
+                        <x-dashboard.error />
 
                         <div class="card shadow-sm border-0 mb-4 rounded-lg">
                             <div class="card-header bg-white border-bottom-0 pt-4 px-4">
-                                <h5 class="text-dark fw-bold mb-0"><i class="fas fa-info-circle mr-2 text-primary"></i> Personal
+                                <h5 class="text-dark fw-bold mb-0"><i class="fas fa-info-circle mr-2 text-primary"></i>
+                                    Personal
                                     Information</h5>
                             </div>
                             <div class="card-body p-4">
@@ -44,6 +46,10 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <x-form.radio name="gender" label="Gender" :options="['male' => 'Male', 'female' => 'Female']" :checked="optional($user->profile)->gender" />
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <x-form.input name="image" type="file" label="Profile Image"
+                                            class="bg-light border-0 shadow-none" />
                                     </div>
                                 </div>
                             </div>

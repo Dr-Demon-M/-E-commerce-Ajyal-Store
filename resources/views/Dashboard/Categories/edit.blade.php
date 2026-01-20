@@ -24,19 +24,20 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('categories.update', $category->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('categories.update', $category->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('put')
-                        {{-- استدعاء الـ _form المنسق مع تغيير نص الزر --}}
+
                         @include('Dashboard.Categories._form', [
-                            'button_label' => 'Update Category'
+                            'button_label' => 'Update Category',
                         ])
                     </form>
                 </div>
-                
+
                 <div class="text-center mt-3">
                     <p class="text-muted small">
-                        <i class="far fa-clock mr-1"></i> 
+                        <i class="far fa-clock mr-1"></i>
                         Last updated: {{ $category->updated_at->diffForHumans() }}
                     </p>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Events\OrderCreated;
+use App\Exceptions\CheckOutException;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -26,8 +27,10 @@ class CheckoutController extends Controller
             ->firstWhere('type', 'table')['data'];
 
 
-        if ($cart->get() === 0) {
-            return redirect()->route('home');
+        if ($cart->get()->isEmpty()) {
+            // return redirect()->route('home');
+            throw new CheckOutException('Cart is empty');
+
         }
         return view('front.checkout', [
             'cart' => $cart,

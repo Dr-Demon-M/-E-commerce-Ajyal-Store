@@ -2,32 +2,51 @@
 
 return [
     [
-        'icon' => 'far fa-circle nav-icon',
+        'icon' => 'fas fa-tachometer-alt nav-icon',
         'route' => 'dashboard',
         'title' => 'Dashboard',
     ],
     [
-        'icon' => 'far fa-circle nav-icon',
+        'icon' => 'fas fa-tags nav-icon',
         'route' => 'categories.index',
         'title' => 'Categories',
         'ability' => 'categories.index',
     ],
     [
-        'icon' => 'far fa-circle nav-icon',
+        'icon' => 'fas fa-box-open nav-icon',
         'route' => 'products.index',
         'title' => 'Products',
         'ability' => 'products.index',
     ],
     [
-        'icon' => 'far fa-circle nav-icon',
+        'icon' => 'fas fa-store nav-icon',
         'route' => 'stores.index',
         'title' => 'Stores',
         'ability' => 'stores.index',
     ],
     [
-        'icon' => 'far fa-circle nav-icon',
+        'icon' => 'fas fa-user-shield nav-icon',
         'route' => 'roles.index',
-        'title' => 'Roles', 
+        'title' => 'Roles',
         'ability' => 'roles.index',
-    ]
+    ],
+    [
+        'icon' => 'fas fa-user-cog nav-icon',
+        'route' => 'admins.index',
+        'title' => 'Admins',
+        'ability' => 'admins.index',
+    ],
+    [
+        'icon' => 'fas fa-users nav-icon',
+        'route' => 'users.index',
+        'title' => 'Users',
+        'ability' => 'users.index',
+    ],
+    [
+        'icon' => 'fas fa-shopping-cart nav-icon',
+        'route' => 'orders.index',
+        'title' => 'Orders',
+        // 'ability' => 'users.index',
+    ],
+
 ];

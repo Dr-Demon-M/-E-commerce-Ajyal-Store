@@ -19,11 +19,16 @@ class Profile extends Model
         'state',
         'postal_code',
         'country',
-        'locale'
+        'locale',
+        'image'
     ];
 
     public  function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public  function admin()
+    {
+        return $this->belongsTo(Admin::class, 'user_id', 'id');
     }
 }

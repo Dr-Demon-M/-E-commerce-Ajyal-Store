@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\FuncCall;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',

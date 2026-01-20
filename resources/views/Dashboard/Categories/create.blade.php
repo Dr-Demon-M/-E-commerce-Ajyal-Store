@@ -27,7 +27,6 @@
                     <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         
-                        {{-- هنا سيتم استدعاء الـ _form المنسق الذي قمنا بتطويره في الخطوة السابقة --}}
                         @include('Dashboard.Categories._form', [
                             'button_label' => 'Create Category'
                         ])

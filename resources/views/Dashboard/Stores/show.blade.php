@@ -75,7 +75,7 @@
                             <hr>
                             <div class="text-center mt-3">
                                 <p class="small text-muted mb-0">Total Products</p>
-                                <h3 class="fw-bold text-primary">{{ $store->product_num }}</h3>
+                                <h3 class="fw-bold text-primary">{{ $store->product_num ?  $store->product_num : 'Null'}}</h3>
                             </div>
                         </div>
                     </div>
@@ -86,9 +86,11 @@
                 <a href="{{ route('stores.index') }}" class="btn btn-outline-secondary btn-sm px-4">
                     <i class="fas fa-arrow-left mr-1"></i> Back
                 </a>
+                @can('update', App\Models\store::class)
                 <a href="{{ route('stores.edit', $store->id) }}" class="btn btn-warning btn-sm px-4 shadow-sm text-dark">
                     <i class="fas fa-edit mr-1"></i> Edit Store
                 </a>
+                @endcan
             </div>
         </div>
     </div>

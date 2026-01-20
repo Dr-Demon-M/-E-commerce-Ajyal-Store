@@ -10,12 +10,16 @@
         </div>
 
         <div class="btn-group">
+            @can('create', App\Models\Product::class)
             <a href="{{ route('products.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
                 <i class="fas fa-plus mr-1"></i> Add
             </a>
+            @endcan
+            @can('delete', App\Models\Product::class)
             <a href="{{ route('products.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
                 <i class="fas fa-trash-alt mr-1"></i> Trash
             </a>
+            @endcan
         </div>
     </div>
 @endsection
@@ -97,7 +101,7 @@
                                 <td>
                                     <div class="text-xs mb-1">
                                         <i class="fas fa-store text-info mr-1"></i>
-                                        <a href="{{ url('stores/' . optional($product->store)->id) }}"
+                                        <a href="#"
                                             class="text-decoration-none">
                                             {{ optional($product->store)->name ?? 'No Store' }}
                                         </a>
@@ -121,14 +125,19 @@
                                 </td>
                                 <td class="text-right pr-4">
                                     <div class="btn-group shadow-sm">
+                                        @can('view', App\Models\Product::class)
                                         <a href="{{ route('products.show', $product->id) }}"
                                             class="btn btn-sm btn-white text-info border" title="View">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                        @endcan
+                                        @can('update', App\Models\Product::class)
                                         <a href="{{ route('products.edit', $product->id) }}"
                                             class="btn btn-sm btn-white text-primary border" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endcan
+                                        @can('delete', App\Models\Product::class)
                                         <form action="{{ route('products.destroy', $product->id) }}" method="post"
                                             onsubmit="return confirm('Delete this product?')">
                                             @csrf
@@ -139,6 +148,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

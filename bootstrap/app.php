@@ -6,9 +6,11 @@ use App\Http\Middleware\MarkNotificationsAsRead;
 use App\Http\Middleware\SetAppLocale;
 use App\Http\Middleware\UserActiveAt;
 use App\Providers\FortifyServiceProvider;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -36,5 +38,27 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        /*
+        // استخدم reportable لتنفيذ أكواد عند حدوث خطأ معين (مثل إرسال إيميل أو تسجيل Log مخصص)
+        $exceptions->reportable(function (QueryException $e) {
+            // تسجيل تفاصيل إضافية
+            Log::error('حدث خطأ في قاعدة البيانات بجدول معين', [
+                'message' => $e->getMessage(),
+                'time' => now()
+            ]);
+        });
+
+        // إذا كنت تريد منع (Ignore) بعض الأخطاء من التسجيل في الـ Logs تماماً
+        // $exceptions->dontReport([
+        //     QueryException::class,
+        // ]);
+
+        $exceptions->render(function (QueryException $e, $request) {
+            return redirect()
+                ->back()
+                ->withInput() // to retain form input (any data user send before)
+                ->withErrors(['database_error' => 'A database error occurred: ' . $e->getMessage()])
+                ->with('delete', 'A database error occurred.');
+        });
+        */
     })->create();

@@ -8,6 +8,8 @@ use Illuminate\Auth\Access\Response;
 
 class RolePolicy
 {
+
+
     /**
      * Determine whether the user can view any models.
      */
@@ -21,7 +23,7 @@ class RolePolicy
      */
     public function view($user, Role $role): bool
     {
-        return $user->hasAbilities('roles.show');
+        return $user->hasAbilities('roles.view');
     }
 
     /**

@@ -10,7 +10,8 @@
 
 
 <select name="{{ $name }}"
-    {{ $attributes->class(['form-select', 'is-invalid' => $errors->has($name)]) }}>
+    {{ $attributes->class(['form-control form-control-lg  bg-light shadow-none', 'is-invalid' => $errors->has($name)]) }}>
+    <option value="" selected disabled>Choose...</option>
     @foreach ($options as $value => $text)
         <option value="{{ $value }}" @selected(old($name, $selected) == $value)>
             {{ $text }}

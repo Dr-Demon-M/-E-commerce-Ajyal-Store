@@ -36,6 +36,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Product::class);
+
         $products = Product::with('category', 'store')
             ->filter($request->query())
             ->paginate(20);
@@ -47,6 +49,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $options = $this->options;
         $product = new Product();
         $categories = Category::all();
@@ -59,6 +63,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Product::class);
+
         $data = $request->all();
         $path = $this->uploadImage($request);
         $data['product_image'] = $path;
@@ -74,6 +80,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->authorize('view', Product::class);
+
         return view('Dashboard.Products.show', compact('product'));
     }
 
@@ -82,6 +90,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('update', Product::class);
+
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $stores = Store::all();
@@ -95,6 +105,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update', Product::class);
+
         $data = $request->except('tags', 'product_image');
         if ($request->hasFile('product_image')) {
             $data['product_image'] = $this->uploadImage($request);
@@ -135,6 +147,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete', Product::class);
+
         $product = Product::findorfail($id);
         $product->delete();
         return redirect()->route('products.index')

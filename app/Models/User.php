@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Concerns\HasRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,12 +52,17 @@ class User extends Authenticatable  implements MustVerifyEmail // add this for m
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_active' => 'datetime',
         ];
     }
 
-    public  function profile()
+    public function ScopeFilter(Builder $builder, $Filters)
     {
-        return $this->hasOne(Profile::class, 'user_id', 'id')
-            ->withDefault();
+        $builder->when($Filters['name'] ?? false, function ($builder, $value) {
+            $builder->where('Users.name', 'LIKE', "%{$value}%");
+        });
+        $builder->when($Filters['name'] ?? false, function ($builder, $value) {
+            $builder->orWhere('Users.email', 'LIKE', "$value");
+        });
     }
 }

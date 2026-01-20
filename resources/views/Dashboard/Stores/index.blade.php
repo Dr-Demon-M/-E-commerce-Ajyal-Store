@@ -4,13 +4,17 @@
     <div class="d-flex align-items-center justify-content-between w-100">
         <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-store-alt mr-2 text-primary"></i>Stores Management</h4>
         <div class="btn-group">
-            <a href="{{ route('stores.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
-                <i class="fas fa-plus mr-1"></i> Add
-            </a>
-            <a href="{{ route('stores.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
-                <i class="fas fa-trash-alt mr-1"></i> Trash
-            </a>
-        </div>
+            @can('create', App\Models\store::class)
+                <a href="{{ route('stores.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
+                    <i class="fas fa-plus mr-1"></i> Add
+                </a>
+            @endcan
+            @can('delete', App\Models\store::class)
+                <a href="{{ route('stores.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
+                    <i class="fas fa-trash-alt mr-1"></i> Trash
+                </a>
+            </div>
+        @endcan
     </div>
 @endsection
 
@@ -92,24 +96,30 @@
                                 </td>
                                 <td class="text-right pr-4">
                                     <div class="btn-group shadow-sm">
-                                        <a href="{{ route('stores.show', $store->id) }}"
-                                            class="btn btn-sm btn-white text-info border" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('stores.edit', $store->id) }}"
-                                            class="btn btn-sm btn-white text-primary border border-left-0" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('stores.destroy', $store->id) }}" method="post"
-                                            onsubmit="return confirm('Are you sure?')">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="btn btn-sm btn-white text-danger border border-left-0"
-                                                title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @can('view', App\Models\store::class)
+                                            <a href="{{ route('stores.show', $store->id) }}"
+                                                class="btn btn-sm btn-white text-info border" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        @endcan
+                                        @can('update', App\Models\store::class)
+                                            <a href="{{ route('stores.edit', $store->id) }}"
+                                                class="btn btn-sm btn-white text-primary border border-left-0" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endcan
+                                        @can('delete', App\Models\store::class)
+                                            <form action="{{ route('stores.destroy', $store->id) }}" method="post"
+                                                onsubmit="return confirm('Are you sure?')">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-white text-danger border border-left-0"
+                                                    title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

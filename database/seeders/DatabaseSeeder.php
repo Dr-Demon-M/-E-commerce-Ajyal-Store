@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(4)->create();
         // Category::factory(5)->create();
         // Store::factory(5)->create();
-        Product::factory(10)->create();
+        // Product::factory(10)->create();
         // $this->call(UserSeeder::class);
+        $this->call([CategorySeeder::class, StoreSeeder::class, ProductSeeder::class]);
     }
 }
-

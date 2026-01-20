@@ -7,12 +7,15 @@
 
     <div class="sidebar px-2">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center shadow-sm rounded bg-light p-2">
-            <div class="image">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle border border-white elevation-1"
-                    alt="User Image" style="width: 2.5rem;">
+            <div class="image" style="padding: 0;">
+                <img src="{{ Auth::user()->profile?->image
+                    ? asset('storage/' . Auth::user()->profile->image)
+                    : asset('dist/img/user2-160x160.jpg') }}"
+                    class="img-circle border border-white elevation-1" alt="User Image" style="width: 3rem;height: 3rem;">
             </div>
             <div class="info w-100">
-                <a href="{{ route('dashboard.profile.edit') }}" class="d-block fw-600 text-dark mb-1 ml-2">{{ Auth::user()->name }}</a>
+                <a href="{{ route('dashboard.profile.edit') }}"
+                    class="d-block fw-600 text-dark">{{ Auth::user()->name }}</a>
                 <form action="{{ route('logout') }}" method="Post" class="ml-2">
                     @csrf
                     <button class="btn btn-xs btn-outline-danger btn-block border-0 text-left p-0"

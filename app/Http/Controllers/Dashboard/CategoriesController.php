@@ -16,6 +16,7 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Category::class);
         // $request = $request->query() // get all data from url
         //$query = Category::query(); //  SELECT * FROM categories
         // $categories = $query->paginate(1);
@@ -51,6 +52,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
         $parents = Category::all();
         $category = new Category(); // علشان يعمل كاتيجوري فاضي اقدر امرره بس 
         return view('Dashboard.Categories.create', compact('category', 'parents'));
@@ -61,7 +63,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-
+        $this->authorize('create', Category::class);
         /* كود بديل منسق اكتر 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
@@ -83,8 +85,9 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request,string $id)
+    public function show(Request $request, string $id)
     {
+        $this->authorize('view', Category::class);
         $category = Category::findorfail($id);
         $products = $category->products()->filter($request->query())->paginate(10);
         return view('Dashboard.Categories.show', compact('category', 'products'));
@@ -95,9 +98,11 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('update', Category::class);
+
         $category = Category::findorfail($id);
         $parents = Category::where('id', '<>', $id)
-            ->where(function ($query) use ($id) { 
+            ->where(function ($query) use ($id) {
                 $query->whereNull('parent_id')
                     ->orWhere('parent_id', '<>', $id);
             })
@@ -110,6 +115,8 @@ class CategoriesController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
+        $this->authorize('update', Category::class);
+
         $category = Category::findOrFail($id);
         $old_image = $category->image;
         $data = $request->except('image');
@@ -133,6 +140,8 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete', Category::class);
+
         $category = Category::findorfail($id);
         $category->delete();
         // if ($category->image) {

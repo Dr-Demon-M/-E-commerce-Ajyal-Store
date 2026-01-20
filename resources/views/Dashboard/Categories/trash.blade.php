@@ -30,7 +30,8 @@
             <form action="{{ URL::Current() }}" method="get" class="row g-2 align-items-end">
                 <div class="col-md-6">
                     <label class="form-label small fw-bold text-muted text-uppercase">Search by Name</label>
-                    <x-form.input name='name' placeholder='Find deleted category...' class="form-control-sm shadow-none border-light" :value="request('name')" />
+                    <x-form.input name='name' placeholder='Find deleted category...'
+                        class="form-control-sm shadow-none border-light" :value="request('name')" />
                 </div>
                 <div class="col-md-3">
                     <label class="form-label small fw-bold text-muted text-uppercase">Original Status</label>
@@ -64,16 +65,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($categories as $category)
+                        @forelse ($categories ?? [] as $category)
                             <tr>
                                 <td class="pl-4">
-                                    <img src="{{ asset('storage/' . $category->image) }}" 
-                                         class="rounded grayscale shadow-xs border" 
-                                         style="width: 45px; height: 45px; object-fit: cover; opacity: 0.7;">
+                                    <img src="{{ asset('storage/' . $category->image) }}"
+                                        class="rounded grayscale shadow-xs border"
+                                        style="width: 45px; height: 45px; object-fit: cover; opacity: 0.7;">
                                 </td>
                                 <td class="text-muted small">#{{ $category->id }}</td>
                                 <td class="text-left">
-                                    <div class="fw-bold text-secondary text-decoration-line-through">{{ $category->name }}</div>
+                                    <div class="fw-bold text-secondary text-decoration-line-through">{{ $category->name }}
+                                    </div>
                                     <small class="text-muted">Parent: {{ $category->parent_name ?? 'None' }}</small>
                                 </td>
                                 <td>
@@ -92,14 +94,18 @@
                                         <form action="{{ route('categories.restore', $category->id) }}" method="post">
                                             @csrf
                                             @method('put')
-                                            <button type="submit" class="btn btn-sm btn-white text-success border" title="Restore">
+                                            <button type="submit" class="btn btn-sm btn-white text-success border"
+                                                title="Restore">
                                                 <i class="fas fa-undo"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('categories.forceDelete', $category->id) }}" method="post" onsubmit="return confirm('WARNING: This action cannot be undone!')">
+                                        <form action="{{ route('categories.forceDelete', $category->id) }}" method="post"
+                                            onsubmit="return confirm('WARNING: This action cannot be undone!')">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-sm btn-white text-danger border border-left-0" title="Delete Permanently">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-white text-danger border border-left-0"
+                                                title="Delete Permanently">
                                                 <i class="fas fa-fire"></i> Force Delete
                                             </button>
                                         </form>
@@ -120,7 +126,7 @@
         </div>
         <div class="card-footer bg-white border-top-0 py-3">
             <div class="d-flex justify-content-center mt-2">
-                {{ $categories->withQueryString()->links() }}
+                {{-- {{ $categories->withQueryString()->links() }} --}}
             </div>
         </div>
     </div>

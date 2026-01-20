@@ -30,17 +30,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Gate::before(function ($user, $ability) {
-        //     if ($user->super_admin) {
-        //         return true; // Super Admin has all abilities
-        //     }
-        // });
+        Gate::before(function ($user, $ability) {
+            if ($user->super_admin) {
+                return true; // Super Admin has all abilities
+            }
+        });
 
-        // foreach (config('abilities') as $code => $label) {
-        //     Gate::define($code, function ($user) use ($code) {
-        //         return $user->hasAbilities($code); // hasAbilities from HasRole trait in concerns
-        //     });
-        // }
+        foreach (config('abilities') as $code => $label) {
+            Gate::define($code, function ($user) use ($code) {
+                return $user->hasAbilities($code); // hasAbilities from HasRole trait in concerns
+            });
+        }
         Paginator::useBootstrapFive(); // to use paginate Style
         // View::share('key', 'value'); to share data for all views
     }

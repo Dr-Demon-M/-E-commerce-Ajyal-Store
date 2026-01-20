@@ -48,7 +48,7 @@
                             <p class="category"><i class="lni lni-tag"></i><a
                                     href="javascript:void(0)">{{ $product->category->name }}</a></p>
                             {{-- <h3 class="price">{{ \App\Helpers\Currency::format($product->price) }}@if ($product->compare_price)<span>{{ \App\Helpers\Currency::format($product->compare_price) }}</span>@endif</h3> --}}
-                            <h3 class="price">{{ currency($product->price, 'EUR') }}@if ($product->compare_price)
+                            <h3 class="price">{{ currency($product->price) }}@if ($product->compare_price)
                                     <span>{{ Currency($product->compare_price) }}</span>
                                 @endif
                             </h3> {{-- helper function in app/helpers/helpers.php and define in composer.json/autoload/files --}}

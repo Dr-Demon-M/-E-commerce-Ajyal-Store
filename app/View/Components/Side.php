@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
@@ -28,7 +29,7 @@ class Side extends Component
     {
         $user = auth()->user();
         foreach ($items as $key => $item) {
-            if (isset($item['ability']) && !$user->hasAbilities($item['ability'])) {
+            if (isset($item['ability']) && Gate::denies($item['ability'], $user)) {
                 unset($items[$key]);
             }
         }

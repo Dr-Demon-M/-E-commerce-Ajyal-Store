@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\StoreScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Intl\Countries;
 
@@ -11,6 +13,7 @@ class Order extends Model
     protected $guarded = [];
     protected static function booted()
     {
+        static::addGlobalScope('store', new StoreScope);
         static::creating(function (Order $order) {
             $order->number = Order::getNextOrderNumber();
         });
@@ -30,6 +33,7 @@ class Order extends Model
         return $year . str_pad($sequence, 4, '0', STR_PAD_LEFT);
     }
 
+    // Relations
     public function store()
     {
         return $this->belongsTo(Store::class);
@@ -68,4 +72,45 @@ class Order extends Model
             ->where('type', '=', 'shipping');
     }
 
+
+    // Badge Colour
+    public function StatusBadgeClass(): string
+    {
+        return match ($this->status) {
+            'pending' => 'bg-warning text-dark',     // Pending = أصفر
+            'processing' => 'bg-primary text-white', // Processing = أزرق
+            'delivering' => 'bg-info text-white',    // Delivering = سماوي
+            'completed' => 'bg-success text-white',  // Completed = أخضر
+            'cancelled' => 'bg-danger text-white',   // Cancelled = أحمر
+            'refunded' => 'bg-secondary text-white', // Refunded = رمادي
+            default => '',
+        };
+    }
+    public function paymentColor(): string
+    {
+        return match ($this->payment_status) {
+            'pending' => 'text-warning',
+            'paid' => 'text-success',
+            'failed' => 'text-danger',
+            default => '',
+        };
+    }
+
+
+    // Scopes
+    public function scopeFilter(Builder $builder, $Filters)
+    {
+        $builder->when($Filters['name'] ?? null, function ($builder, $value) {
+            $builder->whereHas('shippingAddress', function ($builder) use ($value) {
+                $builder->where('first_name', 'Like', "%$value%")
+                    ->orWhere('last_name', 'Like', "%$value%")
+                    ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$value}%"])
+                    ->orWhereRaw("CONCAT(first_name, last_name) LIKE ?", ["%{$value}%"]);
+            });
+        });
+
+        $builder->when($Filters['status'] ?? null, function ($builder, $value) {
+            $builder->where('status', $value);
+        });
+    }
 }

@@ -26,9 +26,14 @@ class profileController extends Controller
 
         $user = Auth::user();
         $user->profile->fill($request->validated())->save();
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('profiles', 'public');
+            $user->profile->image = $path;
+            $user->profile->save();
+        }
         if ($user->profile->wasChanged()) {
             return redirect()->route('dashboard.profile.edit')
-            ->with('success', 'Profile Updated Successfully');
+                ->with('success', 'Profile Updated Successfully');
         }
         return redirect()->route('dashboard.profile.edit');
     }

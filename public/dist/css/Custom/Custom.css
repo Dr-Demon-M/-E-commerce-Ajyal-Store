@@ -1,0 +1,12 @@
+
+.select-no-arrow {
+    -webkit-appearance: none; /* Chrome, Safari */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
+    background-image: none !important;
+    padding-right: .75rem;    /* عشان مايبقاش في مساحة السهم */
+}
+
+.select-no-arrow::-ms-expand {
+    display: none; /* Old Edge/IE */
+}

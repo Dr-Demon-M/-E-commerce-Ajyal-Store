@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class ModelPolicy
 {
+
+
     /**
      * Create a new policy instance.
      */
@@ -19,9 +21,7 @@ class ModelPolicy
         $class_name = str_replace('Policy', '', class_basename($this));
         $class_name = Str::plural(Str::lower($class_name));
 
-        if ($name == 'viewAny') {
-            $name = 'view';
-        }
+        if ($name === 'viewAny') $name = 'index';
 
         $ability = $class_name . '.' . Str::kebab($name);
         $user = $arguments[0];
@@ -31,7 +31,7 @@ class ModelPolicy
                 return false;
             }
         }
-        
+        // @dd($ability);
         return $user->hasAbilities($ability);
     }
 }

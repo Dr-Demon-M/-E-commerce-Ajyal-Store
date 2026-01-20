@@ -16,6 +16,7 @@ class StoreController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('index', Store::class);
         $stores = Store::filter($request->query())->paginate(10);
         return view('dashboard.stores.index', compact('stores'));
     }
@@ -25,6 +26,7 @@ class StoreController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Store::class);
         return view('Dashboard.Stores.store');
     }
 
@@ -33,6 +35,8 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('create', Store::class);
+
         $data = $request->validated();
         $data['slug'] = Str::slug($request->name);
         $logo = $this->uploadImage($request, 'logo_image');
@@ -54,6 +58,8 @@ class StoreController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('view', Store::class);
+
         $store = Store::withCount('products as product_num')
             ->findOrFail($id);
         return view('Dashboard.Stores.show', compact('store'));
@@ -64,6 +70,8 @@ class StoreController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('update', Store::class);
+
         $store = Store::findorfail($id);
         return view('Dashboard.Stores.edit', compact('store'));
     }
@@ -73,6 +81,8 @@ class StoreController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Store::class);
+
         $store = Store::findorfail($id);
         $old_logo = $store->logo_image;
         $old_cover = $store->cover_image;
@@ -102,6 +112,8 @@ class StoreController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete', Store::class);
+
         $store = Store::findorfail($id);
         $store->delete();
         return redirect()->route('stores.index')
