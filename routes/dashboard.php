@@ -1,17 +1,17 @@
     <?php
 
-use App\Http\Controllers\Dashboard\AdminController;
-use App\Http\Controllers\Dashboard\CategoriesController;
+    use App\Http\Controllers\Dashboard\AdminController;
+    use App\Http\Controllers\Dashboard\CategoriesController;
     use App\Http\Controllers\Dashboard\DashboardController;
     use App\Http\Controllers\Dashboard\ProductController;
     use App\Http\Controllers\Dashboard\profileController;
     use App\Http\Controllers\Dashboard\RoleController;
     use App\Http\Controllers\Dashboard\StoreController;
     use App\Http\Controllers\Dashboard\ImportProductController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\front\NotificationsController;
-use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Dashboard\NotificationController;
+    use App\Http\Controllers\Dashboard\UserController;
+    use App\Http\Controllers\OrderController;
+    use Illuminate\Support\Facades\Route;
 
     // , 'checkUserType:admin,super-admin'
     Route::middleware('auth:admin,web')->prefix('admin/dashboard')->group(function () { // should be auth and guard should be admin
@@ -51,17 +51,21 @@ use Illuminate\Support\Facades\Route;
 
         // Role
         Route::resource('roles', RoleController::class);
-        
+
         // Admins
         Route::resource('admins', AdminController::class)->middleware('can:admins.index');
-        
+
         // Users
         Route::resource('users', UserController::class)->middleware('can:users.index');
-        
+
         // Orders
         Route::resource('orders', OrderController::class)/*->middleware('can:orders.index')*/;
-        
-        
-        
+
+        // Notifications
+        Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::delete('notifications', [NotificationController::class, 'deleteAll'])->name('notifications.delete');
+
+
+
         // });
     });

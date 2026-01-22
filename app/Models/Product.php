@@ -26,6 +26,7 @@ class Product extends Model
         'featured',
         'status',
         'show_in_home',
+        'quantity',
 
     ];
 

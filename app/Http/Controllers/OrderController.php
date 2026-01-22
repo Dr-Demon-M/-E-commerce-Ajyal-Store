@@ -12,8 +12,12 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::with('shippingAddress')->filter($request->only('name','status'))->paginate(10);
-        return view('dashboard.orders.index', ['orders' => $orders]);
+        $orders = Order::with('products', 'shippingAddress')
+            ->filter($request->only('name', 'status'))
+            ->paginate(10);
+        return view('dashboard.orders.index', [
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -37,8 +41,12 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::with('products','billingAddress')->find($id);
-        return view('Dashboard.Orders.show', compact('order'));
+        $order = Order::with('products', 'shippingAddress')->find($id);
+        $total = $order->products->sum(function ($product) {
+            return $product->order_item->price * $product->order_item->quantity;
+        });
+
+        return view('Dashboard.Orders.show', compact('order', 'total'));
     }
 
     /**
@@ -55,7 +63,10 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $order = Order::findOrFail($id);
-        $order->update(['status' => $request->status]);
+        $order->update([
+            'status' => $request->status,
+            'payment_status' => $request->payment_status
+        ]);
         return redirect()->back()->with('success', 'Order status updated successfully');
     }
 
@@ -64,6 +75,8 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->delete();
+        return redirect()->back()->with('delete', 'Order deleted successfully');
     }
 }

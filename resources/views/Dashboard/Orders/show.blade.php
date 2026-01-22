@@ -45,10 +45,10 @@
                                                     <span class="fw-bold">{{ $item->name }}</span>
                                                 </div>
                                             </td>
-                                            <td>{{ number_format($item->order_item->price, 2) }}</td>
+                                            <td>{{ currency($item->order_item->price) }}</td>
                                             <td>x {{ $item->order_item->quantity }}</td>
                                             <td class="text-right pr-4 fw-bold text-primary">
-                                                {{ number_format($item->order_item->price * $item->order_item->quantity, 2) }}
+                                                {{ currency($item->order_item->price * $item->order_item->quantity) }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -59,7 +59,7 @@
                     <div class="card-footer bg-light py-3">
                         <div class="d-flex justify-content-between">
                             <h5 class="fw-bold mb-0">Grand Total:</h5>
-                            <h5 class="fw-bold text-success mb-0">{{ number_format($order->total, 2) }} EGP</h5>
+                            <h5 class="fw-bold text-success mb-0">{{ currency($order->total, 'USD') }}</h5>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,19 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <h6 class="text-uppercase text-muted fw-bold mb-3 small">Customer Info</h6>
-                        <p class="mb-1 fw-bold text-dark">{{ $order->shippingAddress->first_name . ' ' . $order->shippingAddress->last_name}}</p>
-                        <p class="mb-1 small text-muted"><i class="fas fa-envelope mr-1"></i>{{ $order->shippingAddress->email ?? 'N/A' }}</p>
-                        <p class="mb-1 small text-muted"><i class="fas fa-phone-alt mr-1"></i>{{ $order->shippingAddress->phone ?? 'N/A' }}</p>
+                        <p class="mb-1 fw-bold text-dark">
+                            {{ $order->shippingAddress->name }}</p>
+                        <p class="mb-1 small text-muted"><i
+                                class="fas fa-envelope mr-1"></i>{{ $order->shippingAddress->email ?? 'N/A' }}</p>
+                        <p class="mb-1 small text-muted"><i
+                                class="fas fa-phone-alt mr-1"></i>{{ $order->shippingAddress->phone_number ? $order->billingAddress->phone_number : 'N/A' }}</p>
                         <hr>
                         <h6 class="text-uppercase text-muted fw-bold mb-2 small">Shipping Address</h6>
-                        <p class="small text-secondary mb-0">{{ $order->shippingAddress->street_address ?? 'No street address provided' }}</p>
+                        <p class="small text-secondary mb-0">
+                            {{ $order->shippingAddress->street_address ?? 'No street address provided' }}</p>
                         <p class="small text-secondary mb-0">{{ $order->shippingAddress->city ?? 'No city provided' }}</p>
-                        <p class="small text-secondary mb-0">{{ $order->shippingAddress->country ?? 'No country provided' }}</p>
+                        <p class="small text-secondary mb-0">
+                            {{ $order->shippingAddress->country ?? 'No country provided' }}</p>
                     </div>
                 </div>
             </div>

@@ -2,12 +2,7 @@
 
 @section('title')
     <div class="d-flex align-items-center justify-content-between w-100">
-        <div class="d-flex align-items-center">
-            <div class="bg-soft-primary p-2 rounded mr-3">
-                <i class="fas fa-boxes text-primary fa-lg"></i>
-            </div>
-            <h4 class="mb-0 text-dark fw-bold">Orders List</h4>
-        </div>
+        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-clipboard-list nav-icon text-primary"></i> Orders List</h4>
     </div>
 @endsection
 
@@ -66,7 +61,7 @@
                         @forelse ($orders as $order)
                             <tr>
                                 <td class="text-muted">
-                                    {{ $order->shippingAddress->first_name . ' ' . $order->shippingAddress->last_name }}
+                                    {{ $order->shippingAddress->name }}
                                 </td>
                                 <td>
                                     <form action="{{ route('orders.update', $order->id) }}" method="POST"
@@ -97,7 +92,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="fw-bold text-dark">{{ currency($order->total, 'USD') }}</div>
+                                    <div class="fw-bold text-dark">
+                                        {{ currency($order->items_total, 'USD') ?? currency($order->total, 'USD') }}</div>
                                 </td>
                                 <td>
                                     <div class="fw-bold text-dark small">Created:
@@ -107,22 +103,22 @@
                                 <td class="text-right pr-4">
                                     <div class="btn-group shadow-sm">
                                         {{-- @can('view', App\Models\Product::class) --}}
-                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                class="btn btn-sm btn-white text-info border" title="View">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                                        <a href="{{ route('orders.show', $order->id) }}"
+                                            class="btn btn-sm btn-white text-info border" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
                                         {{-- @endcan --}}
                                         {{-- @can('delete', App\Models\Product::class) --}}
-                                            <form action="{{ route('orders.destroy', $order->id) }}" method="post"
-                                                onsubmit="return confirm('Delete this order?')">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-white text-danger border border-left-0"
-                                                    title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                        <form action="{{ route('orders.destroy', $order->id) }}" method="post"
+                                            onsubmit="return confirm('Delete this order?')">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="btn btn-sm btn-white text-danger border border-left-0"
+                                                title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                         {{-- @endcan --}}
                                     </div>
                                 </td>

@@ -81,6 +81,7 @@ class AdminController extends Controller
             'store_id' => 'sometimes|exists:stores,id',
             'username'     => 'sometimes|string|max:255|unique:admins,username,' . $id,
             'status'       => 'sometimes|in:active,inactive',
+            'super_admin' => 'sometimes|boolean',
         ]);
         $admin = Admin::findOrFail($id);
         $admin->update($data);

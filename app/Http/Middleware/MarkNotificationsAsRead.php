@@ -15,7 +15,7 @@ class MarkNotificationsAsRead
      */
     public function handle(Request $request, Closure $next): Response // define at bootstrap\app.php
     {
-        $notificationId = $request->query('notification_id'); 
+        $notificationId = $request->query('notification_id');
         if ($notificationId) {
             $user = $request->user();
             if ($user) {

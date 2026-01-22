@@ -110,6 +110,18 @@
             </div>
         </div>
 
+        <div class="col-md-6 mb-4">
+            <label class="form-label small fw-bold text-muted text-uppercase">Product Quantity</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-white border-right-0"><i
+                            class="fas fa-dollar-sign text-muted"></i></span>
+                </div>
+                <x-form.input type="text" name="quantity"
+                    class="form-control form-control-lg border-left-0 shadow-none bg-light"
+                    placeholder="Enter Quantity ..." value="{{ $product->quantity ?? '' }}" />
+            </div>
+        </div>
     </div>
 
     <div class="col-md-12 mb-4">
@@ -151,9 +163,7 @@
 <script>
     $(document).ready(function() {
         $('.custom-file-input').on('change', function() {
-            // جلب اسم الملف فقط
             let fileName = $(this).val().split('\\').pop();
-            // وضع الاسم داخل الـ Label
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
     });

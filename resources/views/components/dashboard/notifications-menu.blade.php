@@ -25,7 +25,7 @@
         @endforeach
 
         <div class="dropdown-divider m-0"></div>
-        <a href="#" class="dropdown-item dropdown-footer text-primary text-sm font-weight-bold">View All
+        <a href="{{ route('notifications.index') }}" class="dropdown-item dropdown-footer text-primary text-sm font-weight-bold">View All
             Notifications</a>
     </div>
 </li>

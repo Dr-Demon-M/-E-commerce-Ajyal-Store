@@ -41,9 +41,10 @@ class OrderCreatedNotification extends Notification
         $address = $this->order->billingAddress;
 
         return [
-            'body' => "New Order Created #{$this->order->number} And Created By {$address->name} From {$address->country}",
+            'body' => "New Order Created #{$this->order->number}",
+            'Customer' => "Created By {$address->name} From {$address->country}",
             'icon' => 'fas fa-envelope mr-2 text-info',
-            'url' => url('/admin/dashboard'),
+            'url' => url("/admin/dashboard/orders/{$this->order->id}"),
             'order_id' => $this->order->id,
         ];
     }
@@ -53,9 +54,10 @@ class OrderCreatedNotification extends Notification
         $address = $this->order->billingAddress;
 
         return new BroadcastMessage([
-            'body' => "New Order Created #{$this->order->number} And Created By {$address->name} From {$address->country}",
+            'body' => "New Order Created #{$this->order->number}",
+            'Customer' => "Created By {$address->name} From {$address->country}",
             'icon' => 'fas fa-envelope mr-2 text-info',
-            'url' => url('/admin/dashboard'),
+            'url' => url("/admin/dashboard/orders/$this->order->id"),
             'order_id' => $this->order->id,
         ]);
     }

@@ -1,17 +1,20 @@
             <div class="card-body p-4">
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <x-form.input value="{{ old('name', $admin->name) }}" name="name" type="text" placeholder="Enter admin name..." label="Admin Name"
+                        <x-form.input value="{{ old('name', $admin->name) }}" name="name" type="text"
+                            placeholder="Enter admin name..." label="Admin Name"
                             class="form-control form-control-lg bg-light shadow-none" />
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <x-form.input value="{{ old('email', $admin->email) }}" name="email" type="email" placeholder="Enter admin email..."
-                            label="Admin Email" class="form-control form-control-lg bg-light shadow-none" />
+                        <x-form.input value="{{ old('email', $admin->email) }}" name="email" type="email"
+                            placeholder="Enter admin email..." label="Admin Email"
+                            class="form-control form-control-lg bg-light shadow-none" />
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <x-form.input value="{{ old('username', $admin->username) }}" name="username" type="text" placeholder="Enter username..." label="Username"
+                        <x-form.input value="{{ old('username', $admin->username) }}" name="username" type="text"
+                            placeholder="Enter username..." label="Username"
                             class="form-control form-control-lg bg-light shadow-none" />
                     </div>
 
@@ -26,8 +29,9 @@
                     </div>
 
                     <div class="col-md-12 mb-4">
-                        <x-form.input value="{{ old('phone_number', $admin->phone_number) }}" name="phone_number" type="text" placeholder="Enter phone number..."
-                            label="Phone Number" class="form-control form-control-lg bg-light shadow-none" />
+                        <x-form.input value="{{ old('phone_number', $admin->phone_number) }}" name="phone_number"
+                            type="text" placeholder="Enter phone number..." label="Phone Number"
+                            class="form-control form-control-lg bg-light shadow-none" />
                     </div>
 
                     <div class="col-md-6 mb-4">
@@ -40,6 +44,14 @@
                             <option value="" selected disabled>Choose status...</option>
                             <option value="active" @selected(old('status', $admin->status) == 'active')>Active</option>
                             <option value="inactive" @selected(old('status', $admin->status) == 'inactive')>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Admin Status</label>
+                        <select name="super_admin" class="form-control form-control-lg  bg-light shadow-none">
+                            <option value="" selected disabled>Choose status...</option>
+                            <option value="1" @selected(old('super_admin', $admin->super_admin) == '1')>Super Admin</option>
+                            <option value="0" @selected(old('super_admin', $admin->super_admin) == '0')>Normal Admin</option>
                         </select>
                     </div>
                 </div>

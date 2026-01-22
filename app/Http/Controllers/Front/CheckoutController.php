@@ -30,7 +30,6 @@ class CheckoutController extends Controller
         if ($cart->get()->isEmpty()) {
             // return redirect()->route('home');
             throw new CheckOutException('Cart is empty');
-
         }
         return view('front.checkout', [
             'cart' => $cart,
@@ -51,7 +50,7 @@ class CheckoutController extends Controller
                     'user_id' => Auth::id(),
                     'payment_method' => 'cod',
                 ]);
-
+                $subtotal = 0;
                 foreach ($cart_item as $item) {
                     OrderItem::create([
                         'order_id' => $order->id,
@@ -60,14 +59,20 @@ class CheckoutController extends Controller
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,
                     ]);
+                    $subtotal += ($item->product->price * $item->quantity);
                 }
+                $order->update([
+                    'total' => $subtotal,
+                ]);
+
                 foreach ($request->post('address') as $type => $address) {
                     $address['type'] = $type;
                     $order->addresses()->create($address);
                 }
+                event(new OrderCreated($order));
             }
+
             DB::commit();
-            event(new OrderCreated($order));
             $cart->empty();
         } catch (Throwable $e) {
             DB::rollBack();

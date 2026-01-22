@@ -2,7 +2,7 @@
 
 @section('title')
     <div class="d-flex align-items-center justify-content-between w-100">
-        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-folder-open mr-2 text-primary"></i>Categories Management</h4>
+        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-tags nav-icon text-primary"></i> Categories Management</h4>
         <div class="btn-group">
             @can('create', App\Models\Category::class)
             <a href="{{ route('categories.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">

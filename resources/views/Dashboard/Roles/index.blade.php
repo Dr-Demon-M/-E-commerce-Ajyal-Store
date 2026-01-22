@@ -2,7 +2,7 @@
 
 @section('title')
     <div class="d-flex align-items-center justify-content-between w-100">
-        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-folder-open mr-2 text-primary"></i>Roles Management</h4>
+        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-user-shield nav-icon text-primary"></i> Roles Management</h4>
         <div class="btn-group">
             @can('create', App\Models\Role::class)
                 <a href="{{ route('roles.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">

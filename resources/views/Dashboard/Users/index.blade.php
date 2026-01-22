@@ -2,7 +2,7 @@
 
 @section('title')
     <div class="d-flex align-items-center justify-content-between w-100">
-        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-store-alt mr-2 text-primary"></i>Users Management</h4>
+        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-users nav-icon text-primary"></i> Users Management</h4>
     </div>
 @endsection
 

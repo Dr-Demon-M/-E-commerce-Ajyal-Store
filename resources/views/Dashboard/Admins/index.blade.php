@@ -2,7 +2,7 @@
 
 @section('title')
     <div class="d-flex align-items-center justify-content-between w-100">
-        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-store-alt mr-2 text-primary"></i>Admins Management</h4>
+        <h4 class="mb-0 text-dark fw-bold"><i class="fas fa-user-cog nav-icon text-primary"></i> Admins Management</h4>
         <div class="btn-group">
             <a href="{{ route('admins.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
                 <i class="fas fa-plus mr-1"></i> Add

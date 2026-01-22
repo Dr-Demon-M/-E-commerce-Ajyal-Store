@@ -13,7 +13,7 @@ class Order extends Model
     protected $guarded = [];
     protected static function booted()
     {
-        static::addGlobalScope('store', new StoreScope);
+        static::addGlobalScope('store', new StoreScope); // to get orders via store_id
         static::creating(function (Order $order) {
             $order->number = Order::getNextOrderNumber();
         });
@@ -51,7 +51,7 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'order_items')
             ->using(OrderItem::class)
-            ->as('order_item') // name of pivot and called in Deducted product Quantity
+            ->as('order_item') // name of pivot and called in Deducted product Quantity $item->order_item->price 
             ->withPivot(['product_name', 'price', 'quantity', 'options']);
     }
 
@@ -113,4 +113,14 @@ class Order extends Model
             $builder->where('status', $value);
         });
     }
+
+    // Accessors 
+
+    // to get total price of order
+    // public function getItemsTotalAttribute(): float
+    // {
+    //     return $this->products->sum(function ($product) {
+    //         return $product->order_item->price * $product->order_item->quantity;
+    //     });
+    // }
 }
