@@ -126,6 +126,14 @@ class Product extends Model
         );
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
+    }
+
+
+
+    // Accessors
     public function getImageUrlAttribute()
     {
         if (!$this->product_image) {

@@ -12,7 +12,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li><a href="{{ route('product.index') }}">Shop</a></li>
+                            <li><a href="#">Shop</a></li>
                             <li>Cart</li>
                         </ul>
                     </div>
@@ -66,7 +66,8 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <div class="count-input">
-                                    <select class="item-quantity input-group" data-id="{{ $item->id }}" style="width:50%">
+                                    <select class="item-quantity input-group" data-id="{{ $item->id }}"
+                                        style="width:50%">
                                         <option value="1" {{ $item->quantity == 1 ? 'selected' : '' }}>1</option>
                                         <option value="2" {{ $item->quantity == 2 ? 'selected' : '' }}>2</option>
                                         <option value="3" {{ $item->quantity == 3 ? 'selected' : '' }}>3</option>
@@ -77,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                <p >{{ currency($item->quantity * $item->product->price) }}</p>
+                                <p>{{ currency($item->quantity * $item->product->price) }}</p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <p>$0.00</p>
@@ -90,6 +91,21 @@
                     </div>
                     <!-- End Single List list -->
                 @endforeach
+                @if ($cart->count() == 0)
+                    <div class="card border-0 shadow-sm text-center my-4">
+                        <div class="card-body py-5">
+                            <h4 class="mb-2">Your cart is empty 🛒</h4>
+                            <p class="text-muted mb-4">
+                                Even your cart is on a diet today… add some snacks (products) 😅
+                            </p>
+
+                            <a href="{{ route('home') }}" class="btn btn-primary">
+                                Go Shopping
+                            </a>
+                        </div>
+                    </div>
+                @endif
+
             </div>
             <div class="row">
                 <div class="col-12">
@@ -114,11 +130,11 @@
                                         <li>Cart Subtotal<span id="cart-total">{{ currency($total) }}</span></li>
                                         <li>Shipping<span>Free</span></li>
                                         <li>You Save<span>$0.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li class="last">You Pay<span>{{ currency($total) }}</span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('checkout') }}" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                        <a href="{{ route('home') }}" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@ class OrderAddress extends Model
         'city',
         'postal_code',
         'state',
-        'country',
+        'governorate',
     ];
 
     public function getNameAttribute()
@@ -27,10 +27,10 @@ class OrderAddress extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function getCountryAttribute()
-    {
-        return Countries::getName(
-            $this->getRawOriginal('country')
-        );
-    }
+    // public function getCountryAttribute()
+    // {
+    //     return Countries::getName(
+    //         $this->getRawOriginal('country')
+    //     );
+    // }
 }

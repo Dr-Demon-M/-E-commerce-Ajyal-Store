@@ -19,9 +19,9 @@
     <div class="container-fluid mt-4">
         <div class="card shadow-sm border-0 overflow-hidden">
             <div class="position-relative">
-                <div class="bg-light" style="height: 200px; overflow: hidden;">
+                <div class="bg-light" style="height: 300px; overflow: hidden;">
                         <img src="{{ $product->image_Url }}" class="w-100 h-100"
-                            style="object-fit: none;">
+                            style="object-fit: cover;">
                 </div>
             </div>
 

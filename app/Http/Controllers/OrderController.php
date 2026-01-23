@@ -65,7 +65,6 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->update([
             'status' => $request->status,
-            'payment_status' => $request->payment_status
         ]);
         return redirect()->back()->with('success', 'Order status updated successfully');
     }

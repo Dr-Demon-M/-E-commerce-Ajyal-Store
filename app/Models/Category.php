@@ -21,6 +21,8 @@ class Category extends Model
         'status'
     ];
 
+
+    // Scopes 
     public function ScopeActive(Builder $builder)
     {
         $builder->where('categories.status', '=', 'active'); // $builder = $query
@@ -43,15 +45,23 @@ class Category extends Model
             $builder->where('categories.status', '=', "{$value}");
         });
     }
-    // relations 
+
+
+    // Relations 
 
     public function products()
     {
         return $this->hasMany(Product::class);
     }
 
-    public function parent() {
+    public function parent()
+    {
         return $this->belongsTo(Category::class, 'parent_id', 'id')
-        ->withDefault(['name' => 'Main Category']);
+            ->withDefault(['name' => 'Main Category']);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
     }
 }

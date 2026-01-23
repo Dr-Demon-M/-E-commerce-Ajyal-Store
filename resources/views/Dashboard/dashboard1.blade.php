@@ -80,7 +80,7 @@
                                             <td>#{{ $order->id }}</td>
                                             <td>{{ $order->shippingAddress->first_name . ' ' . $order->shippingAddress->last_name }}
                                             </td>
-                                            <td>{{ currency($order->items_total) }}</td>
+                                            <td>{{ currency($order->total) }}</td>
                                             <td><span
                                                     class="badge {{ $order->StatusBadgeClass() }}">{{ $order->status }}</span>
                                             </td>

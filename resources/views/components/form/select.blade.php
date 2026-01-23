@@ -9,11 +9,11 @@
 @endif
 
 
-<select name="{{ $name }}"
+<select name="{{ $name }}" style="font-size: medium;"
     {{ $attributes->class(['form-control form-control-lg  bg-light shadow-none', 'is-invalid' => $errors->has($name)]) }}>
     <option value="" selected disabled>Choose...</option>
     @foreach ($options as $value => $text)
-        <option value="{{ $value }}" @selected(old($name, $selected) == $value)>
+        <option value="{{ $text }}" {{-- @selected(old($name, $selected) == $value) --}}>
             {{ $text }}
         </option>
     @endforeach

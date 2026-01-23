@@ -93,7 +93,7 @@
                                 </td>
                                 <td>
                                     <div class="fw-bold text-dark">
-                                        {{ currency($order->items_total, 'USD') ?? currency($order->total, 'USD') }}</div>
+                                        {{ currency($order->total, 'USD') ?? currency($order->total, 'USD') }}</div>
                                 </td>
                                 <td>
                                     <div class="fw-bold text-dark small">Created:

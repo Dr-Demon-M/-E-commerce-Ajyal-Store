@@ -16,7 +16,7 @@
                                         <h2>
                                             {{ $single_slide->name }}
                                         </h2>
-                                        <p>{{ $single_slide->description }}</p>
+                                        <p style="color:white !important">{{ $single_slide->description }}</p>
                                         <h3><span>Now Only</span> {{ Currency($single_slide->price) }}</h3>
                                         <div class="button">
                                             <a href="{{ route('product.show', "$single_slide->slug") }}"
@@ -32,33 +32,22 @@
                 </div>
                 <div class="col-lg-4 col-12">
                     <div class="row">
-                        <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
-                            <!-- Start Small Banner -->
-                            <div class="hero-small-banner"
-                                style="background-image: url('https://placehold.co/370x250');">
-                                <div class="content">
-                                    <h2>
-                                        <span>New line required</span>
-                                        iPhone 12 Pro Max
-                                    </h2>
-                                    <h3>$259.99</h3>
-                                </div>
-                            </div>
-                            <!-- End Small Banner -->
-                        </div>
-                        <div class="col-lg-12 col-md-6 col-12">
-                            <!-- Start Small Banner -->
-                            <div class="hero-small-banner style2">
-                                <div class="content">
-                                    <h2>Weekly Sale!</h2>
-                                    <p>Saving up to 50% off all online store items this week.</p>
-                                    <div class="button">
-                                        <a class="btn" href="product-grids.html">Shop Now</a>
+                        @foreach ($new as $product)
+                            <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
+                                <!-- Start Small Banner -->
+                                <div class="hero-small-banner"
+                                    style="background-image: url('{{ $product->image_url }}');">
+                                    <div class="content">
+                                        <h2>
+                                            <span>Arrival New</span>
+                                            {{ $product->name }}
+                                        </h2>
+                                        <h3>{{ currency($product->price) }}</h3>
                                     </div>
                                 </div>
+                                <!-- End Small Banner -->
                             </div>
-                            <!-- Start Small Banner -->
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -71,30 +60,21 @@
     <section class="banner section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="background-image:url('https://placehold.co/620x340')">
-                        <div class="content">
-                            <h2>Smart Watch 2.0</h2>
-                            <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
-                            <div class="button">
-                                <a href="product-grids.html" class="btn">View Details</a>
+                @foreach ($largeBanner as $product)
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="single-banner custom-responsive-margin"
+                            style="background-image:url('{{ $product->image_url }}')">
+                            <div class="content">
+                                <h2>{{ $product->name }}</h2>
+                                <p style="color:white !important">{{ $product->description }}</p>
+                                <div class="button">
+                                    <a href="{{ route('product.show', "$single_slide->slug") }}" class="btn">Shop
+                                        Now</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin"
-                        style="background-image:url('https://placehold.co/620x340')">
-                        <div class="content">
-                            <h2>Smart Headphone</h2>
-                            <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                incididunt ut labore.</p>
-                            <div class="button">
-                                <a href="product-grids.html" class="btn">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -107,13 +87,12 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Trending Product</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
+                        <p>Discover our most popular products, handpicked based on customer favorites and top sales.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @foreach ($products as $product)
+                @foreach ($trending as $product)
                     <x-front.product-Card :product="$product" />
                 @endforeach
             </div>
@@ -128,120 +107,64 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Special Offer</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
+                        <p>Don’t miss our special offers — limited-time discounts on selected products.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <!-- Start Single Product -->
-                            <div class="single-product">
-                                <div class="product-image">
-                                    <img src="https://placehold.co/335x335" alt="#">
-                                    <div class="button">
-                                        <a href="product-details.html" class="btn"><i class="lni lni-cart"></i>
-                                            Add to
-                                            Cart</a>
+                        @foreach ($bestOffer as $product)
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <!-- Start Single Product -->
+                                <div class="single-product">
+                                    <div class="product-image">
+                                        <img src="{{ $product->image_url }}" alt="#">
+                                        <div class="button">
+                                            <form action="{{ route('cart.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <div class="button">
+                                                    <button type="submit" class="btn"><i class="lni lni-cart"></i>
+                                                        Add to Cart</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <span class="category">{{ $product->category->name }}</span>
+                                        <h4 class="title">
+                                            <a
+                                                href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                        </h4>
+                                        <ul class="review">
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            <li><span>5.0 Review(s)</span></li>
+                                        </ul>
+                                        <div class="price">
+                                            <span>{{ currency($product->price) }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="product-info">
-                                    <span class="category">Camera</span>
-                                    <h4 class="title">
-                                        <a href="product-grids.html">WiFi Security Camera</a>
-                                    </h4>
-                                    <ul class="review">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><span>5.0 Review(s)</span></li>
-                                    </ul>
-                                    <div class="price">
-                                        <span>$399.00</span>
-                                    </div>
-                                </div>
+                                <!-- End Single Product -->
                             </div>
-                            <!-- End Single Product -->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <!-- Start Single Product -->
-                            <div class="single-product">
-                                <div class="product-image">
-                                    <img src="https://placehold.co/335x335" alt="#">
-                                    <div class="button">
-                                        <a href="product-details.html" class="btn"><i class="lni lni-cart"></i>
-                                            Add to
-                                            Cart</a>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <span class="category">Laptop</span>
-                                    <h4 class="title">
-                                        <a href="product-grids.html">Apple MacBook Air</a>
-                                    </h4>
-                                    <ul class="review">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><span>5.0 Review(s)</span></li>
-                                    </ul>
-                                    <div class="price">
-                                        <span>$899.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product -->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <!-- Start Single Product -->
-                            <div class="single-product">
-                                <div class="product-image">
-                                    <img src="https://placehold.co/335x335" alt="#">
-                                    <div class="button">
-                                        <a href="product-details.html" class="btn"><i class="lni lni-cart"></i>
-                                            Add to
-                                            Cart</a>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <span class="category">Speaker</span>
-                                    <h4 class="title">
-                                        <a href="product-grids.html">Bluetooth Speaker</a>
-                                    </h4>
-                                    <ul class="review">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star"></i></li>
-                                        <li><span>4.0 Review(s)</span></li>
-                                    </ul>
-                                    <div class="price">
-                                        <span>$70.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product -->
-                        </div>
+                        @endforeach
                     </div>
                     <!-- Start Banner -->
                     <div class="single-banner right"
-                        style="background-image:url('https://placehold.co/730x310');margin-top: 30px;">
+                        style="background-image:url('{{ $specialCard->image_url }}');margin-top: 30px;">
                         <div class="content">
-                            <h2>Samsung Notebook 9 </h2>
-                            <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                incididunt ut labore.</p>
+                            <h2>{{ $specialCard->name }}</h2>
+                            <p style="color:white !important">{{ $specialCard->description }}</p>
                             <div class="price">
-                                <span>$590.00</span>
+                                <span>{{ currency($specialCard->price) }}</span>
                             </div>
                             <div class="button">
-                                <a href="product-grids.html" class="btn">Shop Now</a>
+                                <a href="{{ route('product.show', "$specialCard->slug") }}" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -250,11 +173,13 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="offer-content">
                         <div class="image">
-                            <img src="https://placehold.co/510x600" alt="#">
-                            <span class="sale-tag">-50%</span>
+                            <img src="{{ $specialCard2->image_url }}" alt="#">
+                            <span class="sale-tag">{{ $specialCard2->sale_percent }}%</span>
                         </div>
                         <div class="text">
-                            <h2><a href="product-grids.html">Bluetooth Headphone</a></h2>
+                            <h2><a
+                                    href="{{ route('product.show', "$specialCard2->slug") }}">{{ $specialCard2->name }}</a>
+                            </h2>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -264,11 +189,12 @@
                                 <li><span>5.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span>$200.00</span>
-                                <span class="discount-price">$400.00</span>
+                                <span>{{ currency($specialCard2->price) }}</span>
+                                @if ($specialCard2->compare_price)
+                                    <span class="discount-price"> {{ currency($specialCard2->compare_price) }}</span>
+                                @endif
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry incididunt ut
-                                eiusmod tempor labores.</p>
+                            <p style="color:white !important">{{ $specialCard2->description }}</p>
                         </div>
                         <div class="box-head">
                             <div class="box">
@@ -305,127 +231,58 @@
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">Best Sellers</h4>
                     <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
+                    @foreach ($bestSellers as $product)
+                        <div class="single-list">
+                            <div class="list-image">
+                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                        src="{{ $product->image_url }}" alt="#"></a>
+                            </div>
+                            <div class="list-info">
+                                <h3>
+                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                </h3>
+                                <span>{{ currency($product->price) }}</span>
+                            </div>
                         </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">GoPro Hero4 Silver</a>
-                            </h3>
-                            <span>$287.99</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Puro Sound Labs BT2200</a>
-                            </h3>
-                            <span>$95.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">HP OfficeJet Pro 8710</a>
-                            </h3>
-                            <span>$120.00</span>
-                        </div>
-                    </div>
+                    @endforeach
                     <!-- End Single List -->
                 </div>
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">New Arrivals</h4>
                     <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
+                    @foreach ($newArrival as $product)
+                        <div class="single-list">
+                            <div class="list-image">
+                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                        src="{{ $product->image_url }}" alt="#"></a>
+                            </div>
+                            <div class="list-info">
+                                <h3>
+                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                </h3>
+                                <span>{{ currency($product->price) }}</span>
+                            </div>
                         </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">iPhone X 256 GB Space Gray</a>
-                            </h3>
-                            <span>$1150.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Canon EOS M50 Mirrorless Camera</a>
-                            </h3>
-                            <span>$950.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Microsoft Xbox One S</a>
-                            </h3>
-                            <span>$298.00</span>
-                        </div>
-                    </div>
+                    @endforeach
                     <!-- End Single List -->
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <h4 class="list-title">Top Rated</h4>
                     <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
+                    @foreach ($topRated as $product)
+                        <div class="single-list">
+                            <div class="list-image">
+                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                        src="{{ $product->image_url }}" alt="#"></a>
+                            </div>
+                            <div class="list-info">
+                                <h3>
+                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                </h3>
+                                <span>{{ currency($product->price) }}</span>
+                            </div>
                         </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Samsung Gear 360 VR Camera</a>
-                            </h3>
-                            <span>$68.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Samsung Galaxy S9+ 64 GB</a>
-                            </h3>
-                            <span>$840.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://placehold.co/100x100" alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Zeus Bluetooth Headphones</a>
-                            </h3>
-                            <span>$28.00</span>
-                        </div>
-                    </div>
+                    @endforeach
                     <!-- End Single List -->
                 </div>
             </div>
@@ -443,30 +300,11 @@
             </div>
             <div class="brands-logo-wrapper">
                 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="https://placehold.co/220x160" alt="#">
-                    </div>
+                    @foreach ($brandImage as $product)
+                        <div class="brand-logo">
+                            <img src="{{ asset('storage/' . $product->logo_image) }}" alt="#">
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -649,7 +487,7 @@
             });
         </script>
         <script>
-            const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
+            const finaleDate = new Date("February 15, 2026 00:00:00").getTime();
 
             const timer = () => {
                 const now = new Date().getTime();

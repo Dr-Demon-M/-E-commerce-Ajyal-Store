@@ -23,10 +23,16 @@ class CheckoutController extends Controller
             file_get_contents(storage_path('app/data/cities.json')),
             true
         );
-        $cities = collect($json)
-            ->firstWhere('type', 'table')['data'];
+        $allCities = collect($json)->firstWhere('type', 'table')['data'];
+        $cities = collect($allCities)->pluck('city_name_en')->sort()->values();
 
-
+        $json2 = json_decode(
+            file_get_contents(storage_path('app/data/governorates.json')),
+            true
+        );
+        $allGover = collect($json2)->firstWhere('type', 'table')['data'];
+        $governorate = collect($allGover)->pluck('governorate_name_en')->sort()->values();
+        
         if ($cart->get()->isEmpty()) {
             // return redirect()->route('home');
             throw new CheckOutException('Cart is empty');
@@ -35,6 +41,7 @@ class CheckoutController extends Controller
             'cart' => $cart,
             'countries' => Countries::getNames(),
             'cities' => $cities,
+            'governorate' => $governorate,
         ]);
     }
 

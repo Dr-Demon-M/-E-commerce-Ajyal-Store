@@ -3112,8 +3112,8 @@ ol {
 
 .hero-area .hero-small-banner .content h2 span {
   font-size: 15px;
-  font-weight: 500;
-  color: #888;
+  font-weight: bold;
+  color: white;
   display: block;
   margin-bottom: 4px;
 }
@@ -3386,6 +3386,7 @@ ol {
 .single-product .product-info {
   padding: 20px;
   background-color: #fff;
+  max-height: 158px;
 }
 
 .single-product .product-info .category {
@@ -3764,7 +3765,7 @@ ol {
   padding-right: 12px;
   float: left;
   position: relative;
-  top: 10px;
+  top: 20px;
 }
 
 .home-product-list .single-list .list-image a {
@@ -8094,29 +8095,29 @@ blockquote span {
   color: #0167F3;
 }
 
-.footer .footer-bottom .socila {
+.footer .footer-bottom .social {
   display: block;
   float: right;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
-  .footer .footer-bottom .socila {
+  .footer .footer-bottom .social {
     float: none;
     text-align: center;
   }
 }
 
-.footer .footer-bottom .socila li {
+.footer .footer-bottom .social li {
   margin: 0;
   margin-right: 5px;
   display: inline-block;
 }
 
-.footer .footer-bottom .socila li:last-child {
+.footer .footer-bottom .social li:last-child {
   margin: 0;
 }
 
-.footer .footer-bottom .socila li a {
+.footer .footer-bottom .social li a {
   height: 35px;
   width: 35px;
   text-align: center;
@@ -8127,20 +8128,20 @@ blockquote span {
   font-size: 15px;
 }
 
-.footer .footer-bottom .socila li a:hover {
+.footer .footer-bottom .social li a:hover {
   background-color: #0167F3;
   color: #fff;
   border-color: transparent;
 }
 
-.footer .footer-bottom .socila li span {
+.footer .footer-bottom .social li span {
   display: inline-block;
   color: #fff;
   margin-right: 12px;
 }
 
 @media (max-width: 767px) {
-  .footer .footer-bottom .socila li span {
+  .footer .footer-bottom .social li span {
     display: none;
   }
 }

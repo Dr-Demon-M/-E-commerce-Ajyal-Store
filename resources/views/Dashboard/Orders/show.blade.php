@@ -108,7 +108,7 @@
                             {{ $order->shippingAddress->street_address ?? 'No street address provided' }}</p>
                         <p class="small text-secondary mb-0">{{ $order->shippingAddress->city ?? 'No city provided' }}</p>
                         <p class="small text-secondary mb-0">
-                            {{ $order->shippingAddress->country ?? 'No country provided' }}</p>
+                            {{ $order->shippingAddress->governorate ?? 'No country provided' }}</p>
                     </div>
                 </div>
             </div>

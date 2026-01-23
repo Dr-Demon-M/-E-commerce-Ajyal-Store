@@ -15,7 +15,10 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     // Home page
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    require __DIR__ . '/dashboard.php';
+
+    // Product
+    Route::get('/products/{category:slug}', [ProductController::class, 'index'])->name('products.index');
     Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
 
 
@@ -27,6 +30,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout');
     Route::post('checkout', [CheckoutController::class, 'store']);
 
+
     //Profile
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,11 +38,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
+
     // 2FA 
     Route::get('/Two-Factor-Auth', [TwoFactorController::class, 'index'])->name('2fa');
 
+
+    // Currency
     Route::post('converter', [CurrencyConverterController::class, 'store'])->name('converter.store');
 
-    require __DIR__ . '/dashboard.php';
+
+
     // require __DIR__ . '/auth.php';
 });

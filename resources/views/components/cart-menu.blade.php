@@ -12,13 +12,13 @@
             <ul class="shopping-list">
                 @foreach ($items as $item)
                     <li>
-                        <a href="javascript:void(0)"  data-id="{{ $item->id }}" class="remove" title="Remove this item"><i
-                                class="lni lni-close"></i></a>
+                        <a href="javascript:void(0)" data-id="{{ $item->id }}" class="remove"
+                            title="Remove this item"><i class="lni lni-close"></i></a>
                         </a>
                         <div class="cart-img-head">
                             <a class="cart-img" href="{{ route('product.show', $item->product->slug) }}"><img
                                     src="{{ $item->product->image_url }}" alt="#"
-                                    style="width: 100% !important;"></a>
+                                    style="height: 100%;object-fit: cover !important;"></a>
                         </div>
 
                         <div class="content">

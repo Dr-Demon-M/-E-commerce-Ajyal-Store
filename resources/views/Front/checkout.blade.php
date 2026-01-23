@@ -80,44 +80,28 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <x-form.input name="address[billing][city]"
-                                                            placeholder="City" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <x-form.select name="address[billing][country]"
-                                                            :options="$countries" placeholder="Country" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {{-- <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <select name="address[billing][city]" class="form-select">
-                                                            <option value="">Select City</option>
-                                                            @foreach ($cities as $city)
-                                                                <option value="{{ $city['id'] }}"
-                                                                    {{ old('address.billing.city') == $city['id'] ? 'selected' : '' }}>
-                                                                    {{ app()->getLocale() === 'ar' ? $city['city_name_ar'] : $city['city_name_en'] }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
                                                     <label>Post Code</label>
                                                     <div class="form-input form">
                                                         <x-form.input name="address[billing][postal_code]"
                                                             placeholder="Post Code" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Governorates</label>
+                                                    <div class="form-input form">
+                                                        <x-form.select name="address[billing][governorate]"
+                                                            :options="$governorate" placeholder="Country" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>City</label>
+                                                    <div class="form-input form">
+                                                        <x-form.select name="address[billing][city]" :options="$cities"
+                                                            placeholder="Country" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,43 +173,28 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <x-form.input name="address[shipping][city]"
-                                                            placeholder="City" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <x-form.select name="address[shipping][country]"
-                                                            :options="$countries" placeholder="Country" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {{-- </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <select name="address[shipping][city]" class="form-select">
-                                                            @foreach ($cities as $city)
-                                                                <option value="{{ $city['id'] }}">
-                                                                    {{ app()->getLocale() === 'ar' ? $city['city_name_ar'] : $city['city_name_en'] }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
                                                     <label>Post Code</label>
                                                     <div class="form-input form">
                                                         <x-form.input name="address[shipping][postal_code]"
                                                             placeholder="Post Code" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Governorate</label>
+                                                    <div class="form-input form">
+                                                        <x-form.select name="address[shipping][governorate]"
+                                                            :options="$governorate" placeholder="Country" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>City</label>
+                                                    <div class="form-input form">
+                                                        <x-form.select name="address[shipping][city]" :options="$cities"
+                                                            placeholder="Country" />
                                                     </div>
                                                 </div>
                                             </div>
