@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\Dashboard\AdminController;
     use App\Http\Controllers\Dashboard\CategoriesController;
+    use App\Http\Controllers\Dashboard\CouponsController;
     use App\Http\Controllers\Dashboard\DashboardController;
     use App\Http\Controllers\Dashboard\ProductController;
     use App\Http\Controllers\Dashboard\profileController;
@@ -65,7 +66,7 @@
         Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
         Route::delete('notifications', [NotificationController::class, 'deleteAll'])->name('notifications.delete');
 
-
-
+        // Coupons
+        Route::resource('coupons', CouponsController::class);
         // });
     });

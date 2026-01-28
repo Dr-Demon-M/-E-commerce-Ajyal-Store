@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helpers\Currency;
 use App\Http\Controllers\Controller;
+use App\Models\coupon;
 use App\Models\Product;
 use App\Repositories\CartRepository;
 use App\Repositories\CartRepositoryInterface;
@@ -18,10 +20,18 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $cart = $this->cart->get();
         $total = $this->cart->total();
+        $discount = 0;
+        if ($request->coupon) {
+            $value = coupon::where('name', "$request->coupon")->first();
+            session([
+                'coupon' => $value->name,
+                'discount' => $value->value,
+            ]);
+        }
         return view('front.cart', [
             'cart' => $cart,
             'total' => $total,

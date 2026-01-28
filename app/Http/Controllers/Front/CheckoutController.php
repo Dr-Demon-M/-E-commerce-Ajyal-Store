@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Events\OrderCreated;
 use App\Exceptions\CheckOutException;
 use App\Http\Controllers\Controller;
+use App\Models\coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\CartRepositoryInterface;
@@ -17,8 +18,17 @@ use Throwable;
 
 class CheckoutController extends Controller
 {
-    public function create(CartRepositoryInterface $cart)
+    public function create(CartRepositoryInterface $cart, Request $request)
     {
+        if ($request->coupon) {
+            $value = coupon::where('name', "$request->coupon")->first();
+            session([
+                'coupon' => $value->name,
+                'discount' => $value->value,
+            ]);
+        }
+        $discount = session('discount', 0);
+
         $json = json_decode(
             file_get_contents(storage_path('app/data/cities.json')),
             true
@@ -32,16 +42,19 @@ class CheckoutController extends Controller
         );
         $allGover = collect($json2)->firstWhere('type', 'table')['data'];
         $governorate = collect($allGover)->pluck('governorate_name_en')->sort()->values();
-        
+
         if ($cart->get()->isEmpty()) {
             // return redirect()->route('home');
             throw new CheckOutException('Cart is empty');
         }
+
         return view('front.checkout', [
             'cart' => $cart,
             'countries' => Countries::getNames(),
             'cities' => $cities,
             'governorate' => $governorate,
+            'request' => $request,
+            'discount' => $discount,
         ]);
     }
 
@@ -52,12 +65,16 @@ class CheckoutController extends Controller
         DB::beginTransaction();
         try {
             foreach ($carts as $store_id => $cart_item) {
+                $discount = session('discount', 0);
+
                 $order = Order::create([
                     'store_id' => $store_id,
                     'user_id' => Auth::id(),
                     'payment_method' => 'cod',
+                    'discount' => $discount,
                 ]);
                 $subtotal = 0;
+                $discount = session('discount', 0);
                 foreach ($cart_item as $item) {
                     OrderItem::create([
                         'order_id' => $order->id,
@@ -66,13 +83,17 @@ class CheckoutController extends Controller
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,
                     ]);
-                    $subtotal += ($item->product->price * $item->quantity);
+                    $subtotal += ($item->product->price * $item->quantity); // 6000 
                 }
                 $order->update([
-                    'total' => $subtotal,
+                    'total' => max(0, $subtotal - $discount),
                 ]);
 
-                foreach ($request->post('address') as $type => $address) {
+                $addresses = $request->post('address');
+                if ($request->has('same_address')) {
+                    $addresses['shipping'] = $addresses['billing'];
+                }
+                foreach ($addresses as $type => $address) {
                     $address['type'] = $type;
                     $order->addresses()->create($address);
                 }
@@ -80,6 +101,10 @@ class CheckoutController extends Controller
             }
 
             DB::commit();
+            $request->session()->forget([
+                'coupon',
+                'discount',
+            ]);
             $cart->empty();
         } catch (Throwable $e) {
             DB::rollBack();

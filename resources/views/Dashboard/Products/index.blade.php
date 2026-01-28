@@ -11,14 +11,14 @@
 
         <div class="btn-group">
             @can('create', App\Models\Product::class)
-            <a href="{{ route('products.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
-                <i class="fas fa-plus mr-1"></i> Add
-            </a>
+                <a href="{{ route('products.create') }}" class="btn btn-sm btn-outline-success shadow-sm px-3">
+                    <i class="fas fa-plus mr-1"></i> Add
+                </a>
             @endcan
             @can('delete', App\Models\Product::class)
-            <a href="{{ route('products.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
-                <i class="fas fa-trash-alt mr-1"></i> Trash
-            </a>
+                <a href="{{ route('products.trash') }}" class="btn btn-sm btn-outline-danger shadow-sm px-3 border-left-0">
+                    <i class="fas fa-trash-alt mr-1"></i> Trash
+                </a>
             @endcan
         </div>
     </div>
@@ -31,7 +31,11 @@
 
 @section('content')
     <x-alert />
-
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('coupons.index') }}" class="btn btn-primary shadow-sm">
+            <i class="fas fa-ticket-alt mr-1"></i> All Coupons
+        </a>
+    </div>
     <div class="card card-outline card-primary shadow-sm mb-4">
         <div class="card-body">
             <form action="{{ URL::Current() }}" method="get" class="row g-2 align-items-end">
@@ -101,8 +105,7 @@
                                 <td>
                                     <div class="text-xs mb-1">
                                         <i class="fas fa-store text-info mr-1"></i>
-                                        <a href="#"
-                                            class="text-decoration-none">
+                                        <a href="#" class="text-decoration-none">
                                             {{ optional($product->store)->name ?? 'No Store' }}
                                         </a>
                                     </div>
@@ -126,28 +129,28 @@
                                 <td class="text-right pr-4">
                                     <div class="btn-group shadow-sm">
                                         @can('view', App\Models\Product::class)
-                                        <a href="{{ route('products.show', $product->id) }}"
-                                            class="btn btn-sm btn-white text-info border" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                            <a href="{{ route('products.show', $product->id) }}"
+                                                class="btn btn-sm btn-white text-info border" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
                                         @endcan
                                         @can('update', App\Models\Product::class)
-                                        <a href="{{ route('products.edit', $product->id) }}"
-                                            class="btn btn-sm btn-white text-primary border" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                            <a href="{{ route('products.edit', $product->id) }}"
+                                                class="btn btn-sm btn-white text-primary border" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                         @endcan
                                         @can('delete', App\Models\Product::class)
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="post"
-                                            onsubmit="return confirm('Delete this product?')">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="btn btn-sm btn-white text-danger border border-left-0"
-                                                title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('products.destroy', $product->id) }}" method="post"
+                                                onsubmit="return confirm('Delete this product?')">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-white text-danger border border-left-0"
+                                                    title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         @endcan
                                     </div>
                                 </td>

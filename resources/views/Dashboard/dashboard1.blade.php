@@ -33,7 +33,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-success shadow-sm">
                         <div class="inner">
-                            <h3>{{ currency($total_incomes) }}</h3>
+                            <h3>{{ currency($total_incomes, 'EGP') }}</h3>
                             <p>Total Incomes</p>
                         </div>
                         <div class="icon">
@@ -80,7 +80,7 @@
                                             <td>#{{ $order->id }}</td>
                                             <td>{{ $order->shippingAddress->first_name . ' ' . $order->shippingAddress->last_name }}
                                             </td>
-                                            <td>{{ currency($order->total) }}</td>
+                                            <td>{{ currency($order->total, 'EGP') }}</td>
                                             <td><span
                                                     class="badge {{ $order->StatusBadgeClass() }}">{{ $order->status }}</span>
                                             </td>

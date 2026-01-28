@@ -53,11 +53,11 @@
                     <div class="cart-single-list" id="{{ $item->id }}">
                         <div class="row align-items-center">
                             <div class="col-lg-1 col-md-1 col-12">
-                                <a href="{{ route('product.show', $item->product->slug) }}"><img
+                                <a href="{{ route('allProduct.show', $item->product->slug) }}"><img
                                         src="{{ $item->product->image_url }}" alt="#"></a>
                             </div>
                             <div class="col-lg-4 col-md-3 col-12">
-                                <h5 class="product-name"><a href="{{ route('product.show', $item->product->slug) }}">
+                                <h5 class="product-name"><a href="{{ route('allProduct.show', $item->product->slug) }}">
                                         {{ $item->product->name }}</a></h5>
                                 <p class="product-des">
                                     <span><em>Type:</em> Mirrorless</span>
@@ -115,10 +115,11 @@
                             <div class="col-lg-8 col-md-6 col-12">
                                 <div class="left">
                                     <div class="coupon">
-                                        <form action="#" target="_blank">
-                                            <input name="Coupon" placeholder="Enter Your Coupon">
+                                        <form action="{{ route('cart.index') }}" method="get">
+                                            <input type="text" name="coupon" placeholder="Enter Your Coupon"
+                                                value="{{ session('coupon') }}">
                                             <div class="button">
-                                                <button class="btn">Apply Coupon</button>
+                                                <button class="btn" type="submit">Apply Coupon</button>
                                             </div>
                                         </form>
                                     </div>
@@ -129,8 +130,11 @@
                                     <ul>
                                         <li>Cart Subtotal<span id="cart-total">{{ currency($total) }}</span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>$0.00</span></li>
-                                        <li class="last">You Pay<span>{{ currency($total) }}</span></li>
+                                        <li>You
+                                            Save<span>{{ currency(session('discount')) }}</span>
+                                        </li>
+                                        <li class="last">You
+                                            Pay<span>{{ currency($total - session('discount')) }}</span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('checkout') }}" class="btn">Checkout</a>

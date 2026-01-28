@@ -49,11 +49,11 @@
                                         @csrf
                                         <div class="select-position">
                                             <select name="currency_code" onchange="this.form.submit()">
+                                                <option value="EGP" @selected('EGP' == session('currency_code'))>E£ EGP</option>
                                                 <option value="USD" @selected('USD' == session('currency_code'))>$ USD</option>
                                                 <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
                                                 <option value="GBP" @selected('GBP' == session('currency_code'))>£ GBP</option>
                                                 <option value="JPY" @selected('JPY' == session('currency_code'))>¥ JPY</option>
-                                                <option value="EGP" @selected('EGP' == session('currency_code'))>E£ EGP</option>
                                             </select>
                                         </div>
                                     </form>

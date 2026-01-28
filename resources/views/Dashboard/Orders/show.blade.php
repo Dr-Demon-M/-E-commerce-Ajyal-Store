@@ -45,10 +45,10 @@
                                                     <span class="fw-bold">{{ $item->name }}</span>
                                                 </div>
                                             </td>
-                                            <td>{{ currency($item->order_item->price) }}</td>
+                                            <td>{{ currency($item->order_item->price, 'EGP') }}</td>
                                             <td>x {{ $item->order_item->quantity }}</td>
                                             <td class="text-right pr-4 fw-bold text-primary">
-                                                {{ currency($item->order_item->price * $item->order_item->quantity) }}
+                                                {{ currency($item->order_item->price * $item->order_item->quantity, 'EGP') }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -57,9 +57,15 @@
                         </div>
                     </div>
                     <div class="card-footer bg-light py-3">
+                        @if ($order->discount > 0)
+                            <div class="d-flex justify-content-between pb-2">
+                                <h5 class="fw-bold mb-0">Discount:</h5>
+                                <h5 class="fw-bold text-danger mb-0">-{{ currency($order->discount, 'EGP') }}</h5>
+                            </div>
+                        @endif
                         <div class="d-flex justify-content-between">
-                            <h5 class="fw-bold mb-0">Grand Total:</h5>
-                            <h5 class="fw-bold text-success mb-0">{{ currency($order->total, 'USD') }}</h5>
+                            <h5 class="fw-bold mb-0">Total:</h5>
+                            <h5 class="fw-bold text-success mb-0">{{ currency($order->total, 'EGP') }}</h5>
                         </div>
                     </div>
                 </div>
@@ -101,7 +107,8 @@
                         <p class="mb-1 small text-muted"><i
                                 class="fas fa-envelope mr-1"></i>{{ $order->shippingAddress->email ?? 'N/A' }}</p>
                         <p class="mb-1 small text-muted"><i
-                                class="fas fa-phone-alt mr-1"></i>{{ $order->shippingAddress->phone_number ? $order->billingAddress->phone_number : 'N/A' }}</p>
+                                class="fas fa-phone-alt mr-1"></i>{{ $order->shippingAddress->phone_number ? $order->billingAddress->phone_number : 'N/A' }}
+                        </p>
                         <hr>
                         <h6 class="text-uppercase text-muted fw-bold mb-2 small">Shipping Address</h6>
                         <p class="small text-secondary mb-0">

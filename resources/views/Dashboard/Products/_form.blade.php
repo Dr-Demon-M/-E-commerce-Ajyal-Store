@@ -151,8 +151,6 @@
         </div>
     </div>
 </div>
-</div>
-
 <div class="card-footer bg-white border-top-0 p-4">
     <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm rounded-pill">
         <i class="fas fa-save mr-2"></i> {{ $button_label ?? 'Save Product' }}

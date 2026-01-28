@@ -16,13 +16,13 @@
                             title="Remove this item"><i class="lni lni-close"></i></a>
                         </a>
                         <div class="cart-img-head">
-                            <a class="cart-img" href="{{ route('product.show', $item->product->slug) }}"><img
+                            <a class="cart-img" href="{{ route('allProduct.show', $item->product->slug) }}"><img
                                     src="{{ $item->product->image_url }}" alt="#"
                                     style="height: 100%;object-fit: cover !important;"></a>
                         </div>
 
                         <div class="content">
-                            <h4><a href="{{ route('product.show', $item->product->slug) }}">
+                            <h4><a href="{{ route('allProduct.show', $item->product->slug) }}">
                                     {{ $item->product->name }}</a></h4>
                             <p class="quantity">{{ $item->quantity }} x - <span
                                     class="amount">{{ currency($item->product->price) }}</span></p>

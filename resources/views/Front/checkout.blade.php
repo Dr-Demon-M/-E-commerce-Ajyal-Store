@@ -74,7 +74,7 @@
                                                     <label>Street Address</label>
                                                     <div class="form-input form">
                                                         <x-form.input name="address[billing][street_address]"
-                                                            placeholder="street_address" />
+                                                            placeholder="Street Address" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,8 +107,8 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="single-checkbox checkbox-style-3">
-                                                    <input type="checkbox" id="checkbox-3">
-                                                    <label for="checkbox-3"><span></span></label>
+                                                    <input type="checkbox" id="same-address" name="same_address">
+                                                    <label for="same-address"><span></span></label>
                                                     <p>My delivery and mailing addresses are the same.</p>
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@
                                                 <div class="single-form button">
                                                     <button class="btn" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseFour" aria-expanded="false"
-                                                        aria-controls="collapseFour">next
+                                                        aria-controls="collapseFour" type="button">next
                                                         step</button>
                                                 </div>
                                             </div>
@@ -247,9 +247,13 @@
                                                 <div class="steps-form-btn button">
                                                     <button class="btn" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseThree" aria-expanded="false"
-                                                        aria-controls="collapseThree">previous</button>
-                                                    <a href="javascript:void(0)" class="btn btn-alt">Save &
-                                                        Continue</a>
+                                                        aria-controls="collapseThree" type="button">previous</button>
+                                                    <a href="javascript:void(0)" class="btn btn-alt"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapsefive"
+                                                        aria-expanded="false" aria-controls="collapsefive">
+                                                        Save & Continue
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -313,14 +317,14 @@
                 <div class="col-lg-4">
                     <div class="checkout-sidebar">
                         <div class="checkout-sidebar-coupon">
-                            <p>Appy Coupon to get discount!</p>
-                            <form action="#">
+                            <form action="{{ route('checkout') }}" method="get">
                                 <div class="single-form form-default">
                                     <div class="form-input form">
-                                        <input type="text" placeholder="Coupon Code">
+                                        <input name='coupon' placeholder="Coupon Code"
+                                            value="{{ session('coupon') }}">
                                     </div>
                                     <div class="button">
-                                        <button class="btn">apply</button>
+                                        <button class="btn" type="submit">apply</button>
                                     </div>
                                 </div>
                             </form>
@@ -335,24 +339,20 @@
                                 </div>
                                 <div class="total-price shipping">
                                     <p class="value">Shipping Price:</p>
-                                    <p class="price">$00.00</p>
+                                    <p class="price">{{ Currency(0) }}</p>
+                                </div>
+                                <div class="total-price saving">
+                                    <p class="value">You Save:</p>
+                                    <p class="price">{{ currency(session('discount')) }}</p>
                                 </div>
                             </div>
 
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value">Total Price:</p>
-                                    <p class="price">{{ currency($cart->total()) }}</p>
+                                    <p class="price">{{ currency($cart->total() - session('discount')) }}</p>
                                 </div>
                             </div>
-                            <div class="price-table-btn button">
-                                <a href="{{ route('checkout') }}" class="btn btn-alt">Checkout</a>
-                            </div>
-                        </div>
-                        <div class="checkout-sidebar-banner mt-30">
-                            <a href="product-grids.html">
-                                <img src="https://via.placeholder.com/400x330" alt="#">
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -360,6 +360,64 @@
         </div>
     </section>
     <!--====== Checkout Form Steps Part Ends ======-->
+    @push('scripts')
+        <script>
+            const sameAddressCheckbox = document.getElementById('same-address');
+            const fields = [
+                'first_name',
+                'last_name',
+                'email',
+                'phone_number',
+                'street_address',
+                'postal_code',
+                'governorate',
+                'city'
+            ];
 
+            function syncShippingFields(disabled) {
+                fields.forEach(field => {
+                    const billing = document.querySelector(`[name="address[billing][${field}]"]`);
+                    const shipping = document.querySelector(`[name="address[shipping][${field}]"]`);
+                    if (!billing || !shipping) return;
+                    if (disabled) {
+                        shipping.value = billing.value;
+                        if (shipping.tagName === 'INPUT' || shipping.tagName === 'TEXTAREA') {
+                            shipping.readOnly = true;
+                        }
+                        if (shipping.tagName === 'SELECT') {
+                            shipping.style.pointerEvents = 'none';
+                            shipping.style.backgroundColor = '#eee';
+                        }
+                    } else {
+                        if (shipping.tagName === 'INPUT' || shipping.tagName === 'TEXTAREA') {
+                            shipping.readOnly = false;
+                        }
+                        if (shipping.tagName === 'SELECT') {
+                            shipping.style.pointerEvents = '';
+                            shipping.style.backgroundColor = '';
+                        }
+                        shipping.value = '';
+                    }
+                    shipping.dispatchEvent(new Event('change'));
+                });
+            }
+
+            sameAddressCheckbox.addEventListener('change', function() {
+                syncShippingFields(this.checked);
+            });
+
+            fields.forEach(field => {
+                const billing = document.querySelector(
+                    `[name="address[billing][${field}]"]`
+                );
+                if (!billing) return;
+                billing.addEventListener('input', () => {
+                    if (sameAddressCheckbox.checked) {
+                        syncShippingFields(true);
+                    }
+                });
+            });
+        </script>
+    @endpush
 
 </x-front-layout>

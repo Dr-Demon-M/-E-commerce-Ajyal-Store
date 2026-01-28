@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('last_active')
-            ->after('type')
-            ->nullable();
+        Schema::create('coupons', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('value');
         });
     }
 
@@ -23,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_active');
-        });
+        Schema::dropIfExists('coupons');
     }
 };

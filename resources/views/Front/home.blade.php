@@ -19,7 +19,7 @@
                                         <p style="color:white !important">{{ $single_slide->description }}</p>
                                         <h3><span>Now Only</span> {{ Currency($single_slide->price) }}</h3>
                                         <div class="button">
-                                            <a href="{{ route('product.show', "$single_slide->slug") }}"
+                                            <a href="{{ route('allProduct.show', "$single_slide->slug") }}"
                                                 class="btn">Show Product</a>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                 <h2>{{ $product->name }}</h2>
                                 <p style="color:white !important">{{ $product->description }}</p>
                                 <div class="button">
-                                    <a href="{{ route('product.show', "$single_slide->slug") }}" class="btn">Shop
+                                    <a href="{{ route('allProduct.show', "$product->slug") }}" class="btn">Shop
                                         Now</a>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                         <span class="category">{{ $product->category->name }}</span>
                                         <h4 class="title">
                                             <a
-                                                href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                                href="{{ route('allProduct.show', $product->slug) }}">{{ $product->name }}</a>
                                         </h4>
                                         <ul class="review">
                                             <li><i class="lni lni-star-filled"></i></li>
@@ -164,7 +164,7 @@
                                 <span>{{ currency($specialCard->price) }}</span>
                             </div>
                             <div class="button">
-                                <a href="{{ route('product.show', "$specialCard->slug") }}" class="btn">Shop Now</a>
+                                <a href="{{ route('allProduct.show', "$specialCard->slug") }}" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="text">
                             <h2><a
-                                    href="{{ route('product.show', "$specialCard2->slug") }}">{{ $specialCard2->name }}</a>
+                                    href="{{ route('allProduct.show', "$specialCard2->slug") }}">{{ $specialCard2->name }}</a>
                             </h2>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -234,12 +234,12 @@
                     @foreach ($bestSellers as $product)
                         <div class="single-list">
                             <div class="list-image">
-                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                <a href="{{ route('allProduct.show', "$product->slug") }}"><img
                                         src="{{ $product->image_url }}" alt="#"></a>
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>
@@ -253,12 +253,12 @@
                     @foreach ($newArrival as $product)
                         <div class="single-list">
                             <div class="list-image">
-                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                <a href="{{ route('allProduct.show', "$product->slug") }}"><img
                                         src="{{ $product->image_url }}" alt="#"></a>
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>
@@ -272,12 +272,12 @@
                     @foreach ($topRated as $product)
                         <div class="single-list">
                             <div class="list-image">
-                                <a href="{{ route('product.show', "$product->slug") }}"><img
+                                <a href="{{ route('allProduct.show', "$product->slug") }}"><img
                                         src="{{ $product->image_url }}" alt="#"></a>
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('product.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>

@@ -11,9 +11,9 @@ class Currency
     // rate in cache named {currency_rate_EUR} and currency in session {currency_code}
     public static function format($amount, $currency = null)
     {
-        $formatter = new NumberFormatter(config('app.locale'), NumberFormatter::CURRENCY);
+        $formatter = new NumberFormatter("config('app.locale')", NumberFormatter::CURRENCY);
 
-        $baseCurrency = config('app.currency', 'USD');
+        $baseCurrency = config('app.currency', 'EGP');
         if ($currency === null) {
             $currency = Session::get('currency_code', $baseCurrency);
         }

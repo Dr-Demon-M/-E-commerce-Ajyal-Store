@@ -10,7 +10,7 @@
                             <ul class="sub-category">
                                 @foreach ($categories as $cat)
                                     <li>
-                                        <a href="{{ route('products.index', $cat->slug) }}">
+                                        <a href="{{ route('allProducts.index', $cat->slug) }}">
                                             {{ $cat->name }}
                                             @if ($cat->children->count())
                                                 <i class="lni lni-chevron-right"></i>
@@ -20,7 +20,7 @@
                                             <ul class="inner-sub-category">
                                                 @foreach ($cat->children as $child)
                                                     <li>
-                                                        <a href="{{ route('products.index', $child->slug) }}">{{ $child->name }}</a>
+                                                        <a href="{{ route('allProducts.index', $child->slug) }}">{{ $child->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

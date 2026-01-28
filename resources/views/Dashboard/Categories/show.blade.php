@@ -67,7 +67,7 @@
                         @forelse ($products as $product)
                             <tr>
                                 <td class="pl-4">
-                                    <img src="{{ $product->product_image }}" 
+                                    <img src="{{ $product->image_url}}" 
                                          class="rounded shadow-xs border" 
                                          style="width: 45px; height: 45px; object-fit: cover;">
                                 </td>

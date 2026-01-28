@@ -45,7 +45,7 @@
                                 @foreach ($categories as $cat)
                                     <li>
                                         <a
-                                            href="{{ route('products.index', $cat->slug) }}">{{ $cat->name }}</a><span>({{ $cat->products->count() }})</span>
+                                            href="{{ route('allProducts.index', $cat->slug) }}">{{ $cat->name }}</a><span>({{ $cat->products->count() }})</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -146,7 +146,7 @@
                                                     <span class="category">{{ $product->category->name }}</span>
                                                     <h4 class="title">
                                                         <a
-                                                            href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                                            href="{{ route('allProduct.show', $product->slug) }}">{{ $product->name }}</a>
                                                     </h4>
                                                     <ul class="review">
                                                         @for ($i = 1; $i <= 5; $i++)

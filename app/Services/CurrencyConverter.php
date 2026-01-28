@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class CurrencyConverter
 {
-    protected $api_key;
+    protected $api_key; 
     protected $baseUrl = "https://v6.exchangerate-api.com/v6/";
 
     public function __construct()

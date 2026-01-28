@@ -18,8 +18,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     require __DIR__ . '/dashboard.php';
 
     // Product
-    Route::get('/products/{category:slug}', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+    Route::get('/products/{category:slug}', [ProductController::class, 'index'])->name('allProducts.index');
+    Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('allProduct.show');
 
 
     // Cart 
@@ -41,6 +41,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     // 2FA 
     Route::get('/Two-Factor-Auth', [TwoFactorController::class, 'index'])->name('2fa');
+
+
+    // Currency
+    Route::post('converter', [CurrencyConverterController::class, 'store'])->name('converter.store');
 
 
     // Currency
