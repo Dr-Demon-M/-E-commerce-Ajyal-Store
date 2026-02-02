@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Repositories\CartRepository;
 use App\Repositories\CartRepositoryInterface;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
@@ -30,6 +31,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Authenticate::redirectUsing(function ($request) {
+            if ($request->is('admin/*')) {
+                return route('login');
+            }
+            return route('home');
+        });
         Gate::before(function ($user, $ability) {
             if ($user->super_admin) {
                 return true; // Super Admin has all abilities

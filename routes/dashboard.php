@@ -15,15 +15,16 @@
     use Illuminate\Support\Facades\Route;
 
     // , 'checkUserType:admin,super-admin'
-    Route::middleware('auth:admin,web')->prefix('admin/dashboard')->group(function () { // should be auth and guard should be admin
-        // Profile 
-        Route::get('profile', [profileController::class, 'edit'])->name('dashboard.profile.edit');
-        Route::patch('profile', [profileController::class, 'update'])->name('dashboard.profile.update'); // can't make it put cause put need variable {$id}
-
-
+    Route::middleware('auth:admin')->prefix('admin/dashboard')->group(function () { // admin-only dashboard
         // Dashboard
         // Route::get('/dashboard/index',[DashboardController::class, 'index']);
-        Route::get('/', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+
+        // Profile 
+        Route::get('profile', [profileController::class, 'edit'])->name('dashboard.profile.edit');
+        Route::patch('profile', [profileController::class, 'update'])->name('dashboard.profile.update'); // can't make it put cause put need variable {$id
+
 
         // Route::middleware('ability.auto')->group(function () { // should be auth and guard should be admin
         // Category

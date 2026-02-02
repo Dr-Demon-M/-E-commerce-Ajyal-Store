@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-                    <form class="card login-form" action="{{ route('login') }}" method="post">
+                    <form class="card login-form" action="{{ route('user.login') }}" method="post">
                         @csrf
                         <div class="card-body">
                             <div class="title">
@@ -46,12 +46,12 @@
                                     <input type="checkbox" name="remember" value="1" class="form-check-input width-auto" id="exampleCheck1">
                                     <label class="form-check-label">Remember me</label>
                                 </div>
-                                <a class="lost-pass" href="{{ route('password.request') }}">Forgot password?</a>
+                                <a class="lost-pass" href="{{ route('user.password.request') }}">Forgot password?</a>
                             </div>
                             <div class="button">
                                 <button class="btn" type="submit">Login</button>
                             </div>
-                            <p class="outer-link">Don't have an account? <a href="{{ route('register') }}">Register here </a>
+                            <p class="outer-link">Don't have an account? <a href="{{ route('user.register') }}">Register here </a>
                             </p>
                         </div>
                     </form>

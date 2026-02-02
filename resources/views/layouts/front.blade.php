@@ -52,79 +52,77 @@
                                                 <option value="EGP" @selected('EGP' == session('currency_code'))>E£ EGP</option>
                                                 <option value="USD" @selected('USD' == session('currency_code'))>$ USD</option>
                                                 <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
-                                                <option value="GBP" @selected('GBP' == session('currency_code'))>£ GBP</option>
-                                                <option value="JPY" @selected('JPY' == session('currency_code'))>¥ JPY</option>
                                             </select>
                                         </div>
                                     </form>
                                 </li>
                                 <li>
-                                    <form>
-                                        <div class="select-position">
-                                            <select onchange="window.location.href=this.value">
-                                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                                    <option
-                                                        value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
-                                                        @selected(app()->getLocale() === $localeCode)>
-                                                        {{ $properties['native'] ?? $properties['name'] }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                    </form>
-                        </div>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <div class="top-middle">
-                        <ul class="useful-links">
-                            <li><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-                            <li><a href="about-us.html">{{ __('About us') }}</a></li>
-                            <li><a href="contact.html">{{ __('Contact us') }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    @auth('web')
-                        <div class="top-end">
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                {{ Auth::guard('web')->user()->name }}
-                            </div>
-                            <ul class="user-login">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout').submit()">
-                                        Sign out</a>
-                                </li>
-                                <li style="border:none !important;">
-                                    <a href="{{ route('2fa') }}">2FA</a>
-                                </li>
-                                <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
-                                    @csrf
-                                </form>
-                            </ul>
-                        </div>
-                    @else
-                        <div class="top-end">
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                {{ __('Hello') }}
-                            </div>
-                            <ul class="user-login">
-                                <li>
-                                    <a href="{{ route('login') }}">{{ __('Sign in') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <div class="select-position">
+                                        <select onchange="window.location.href=this.value">
+                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                <option
+                                                    value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
+                                                    @selected(app()->getLocale() === $localeCode)>
+                                                    {{ $properties['native'] ?? $properties['name'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
-                    @endauth
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-12 text-center">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                                <li><a href="#">{{ __('About us') }}</a></li>
+                                <li><a href="#">{{ __('Contact us') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            @auth('web')
+                                <div class="user-menu">
+                                    <button class="user-trigger" type="button">
+                                        <i class="lni lni-user"></i>
+                                        {{ Auth::guard('web')->user()->name }}
+                                    </button>
+                                    <ul class="user-login">
+                                        <li><a href="{{ route('profile.edit') }}">Show Profile</a></li>
+                                        <li><a href="{{ route('user-orders.index') }}">My Orders</a></li>
+                                        <li>
+                                            <a href="{{ route('2fa') }}">2FA</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();">
+                                                {{ __('Sign out') }}
+                                            </a>
+                                        </li>
+                                        <form action="{{ route('user.logout') }}" id="user-logout-form" method="post"
+                                            style="display:none">
+                                            @csrf
+                                        </form>
+                                    </ul>
+                                </div>
+                            @else
+                                <div class="user">
+                                    <i class="lni lni-user"></i>
+                                    {{ __('Hello') }}
+                                </div>
+                                <ul class="user-login">
+                                    <li><a href="{{ route('user.login') }}">{{ __('Sign in') }}</a></li>
+                                    <li><a href="{{ route('user.register') }}">{{ __('Register') }}</a></li>
+                                </ul>
+                            @endauth
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         <!-- End Topbar -->
 

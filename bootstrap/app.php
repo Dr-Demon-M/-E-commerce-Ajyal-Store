@@ -10,6 +10,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -22,6 +24,15 @@ return Application::configure(basePath: dirname(__DIR__))
         // apiPrefix: 'api/v1',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->redirectTo(
+            guests: 'user/login',
+            users: function (Request $request) {
+                if (Auth::guard('admin')->check() && $request->is('admin*')) {
+                    return '/admin/dashboard';
+                }
+                return '/';
+            }
+        );
         $middleware->alias([
             'checkUserType'           => CheckUserType::class,
             'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,

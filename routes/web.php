@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\Front\CurrencyConverterController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\OrderController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TwoFactorController;
@@ -51,6 +52,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('converter', [CurrencyConverterController::class, 'store'])->name('converter.store');
 
 
+    // order 
+    Route::resource('user/orders', OrderController::class)->names('user-orders');
 
-    // require __DIR__ . '/auth.php';
+    require __DIR__ . '/auth.php';
+    require __DIR__ . '/UserAuth.php';
 });

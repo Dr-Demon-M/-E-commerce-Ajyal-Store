@@ -34,4 +34,72 @@
     color: #fff !important;
 }
 
+/* User dropdown (topbar) */
+.header .topbar .top-end .user-menu {
+    position: relative;
+    display: inline-block;
+}
 
+.header .topbar .top-end .user-trigger {
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.header .topbar .top-end .user-trigger i {
+    color: #fff;
+    font-size: 16px;
+}
+
+.header .topbar .top-end .user-menu .user-login {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    display: none;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    padding: 6px 0;
+    min-width: 170px;
+    z-index: 1000;
+}
+
+.header .topbar .top-end .user-menu::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 10px;
+}
+
+.header .topbar .top-end .user-menu:hover .user-login,
+.header .topbar .top-end .user-trigger:hover + .user-login,
+.header .topbar .top-end .user-menu:focus-within .user-login {
+    display: block;
+}
+
+.header .topbar .top-end .user-menu .user-login li {
+    display: block;
+    border-right: none;
+    padding: 0;
+}
+
+.header .topbar .top-end .user-menu .user-login li a {
+    display: block;
+    padding: 8px 14px;
+    color: #111;
+    font-size: 14px;
+}
+
+.header .topbar .top-end .user-menu .user-login li a:hover {
+    color: #0167F3;
+    background: rgba(1, 103, 243, 0.08);
+}

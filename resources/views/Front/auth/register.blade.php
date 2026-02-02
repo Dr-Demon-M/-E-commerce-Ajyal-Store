@@ -23,15 +23,6 @@
     <div class="account-login section">
         <div class="container">
             <x-alert />
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
@@ -40,7 +31,16 @@
                             <h3>No Account? Register</h3>
                             <p>Registration takes less than a minute but gives you full control over your orders.</p>
                         </div>
-                        <form action="{{ route('register.store') }}" class="row" method="post">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('user.register') }}" class="row" method="post">
                             @csrf
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -57,7 +57,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-phone">Phone Number</label>
-                                    <input class="form-control" type="text" name="Phone" required>
+                                    <input class="form-control" type="text" name="phone" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -75,7 +75,8 @@
                             <div class="button">
                                 <button class="btn" type="submit">Register</button>
                             </div>
-                            <p class="outer-link">Already have an account? <a href="{{ route('login') }}">Login Now</a>
+                            <p class="outer-link">Already have an account? <a href="{{ route('user.login') }}">Login
+                                    Now</a>
                             </p>
                         </form>
                     </div>

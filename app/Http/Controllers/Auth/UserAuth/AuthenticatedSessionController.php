@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\UserAuth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('Front.auth.login');
     }
 
     /**
@@ -26,15 +26,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        if (! Auth::guard('admin')->check()) {
-            return back()->withErrors([
-                'email' => 'تمت محاولة تسجيل الدخول لكن الجلسة لم تُحفظ. تأكد أن جدول admins يحتوي على البريد الصحيح وكلمة المرور مشفّرة.',
-            ]);
-        }
-
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->route('home');
     }
 
     /**
@@ -42,7 +36,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');

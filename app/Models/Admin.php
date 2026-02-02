@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use App\Concerns\HasRole;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Admin extends User
+class Admin extends User implements MustVerifyEmail
 {
     use Notifiable, HasFactory, HasApiTokens, HasRole;
+
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',
