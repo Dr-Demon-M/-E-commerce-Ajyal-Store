@@ -21,7 +21,7 @@
 
                         @if (session('status') == 'verification-link-sent')
                             <div
-                                class="mb-4 p-3 rounded-xl bg-green-50 text-sm text-green-700 border border-green-100 text-center font-medium">
+                                class="mt-4 p-3 rounded-xl bg-green-50 text-sm text-green-700 border border-green-100 text-center font-medium">
                                 <i class="fas fa-check-circle mr-1"></i>
                                 {{ __('A new verification link has been sent to your email address.') }}
                             </div>

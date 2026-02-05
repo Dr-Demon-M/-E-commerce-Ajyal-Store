@@ -103,3 +103,26 @@
     color: #0167F3;
     background: rgba(1, 103, 243, 0.08);
 }
+
+#toast-container > div {
+    opacity: 1 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; 
+}
+
+
+#toast-container > .toast-success {
+    background-color: #28a745 !important; 
+}
+
+#toast-container > .toast-error {
+    background-color: #dc3545 !important; 
+}
+
+#toast-container > .toast-info {
+    background-color: #17a2b8 !important; 
+}
+
+#toast-container > .toast-warning {
+    background-color: #ffc107 !important; 
+    color: #000 !important;
+}

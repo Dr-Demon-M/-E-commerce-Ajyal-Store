@@ -33,7 +33,7 @@
                 <div class="col-lg-4 col-12">
                     <div class="row">
                         @foreach ($new as $product)
-                            <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
+                            <div class="col-lg-12 col-md-6 col-12 md-custom-padding pb-2">
                                 <!-- Start Small Banner -->
                                 <div class="hero-small-banner"
                                     style="background-image: url('{{ $product->image_url }}');">
@@ -164,7 +164,8 @@
                                 <span>{{ currency($specialCard->price) }}</span>
                             </div>
                             <div class="button">
-                                <a href="{{ route('allProduct.show', "$specialCard->slug") }}" class="btn">Shop Now</a>
+                                <a href="{{ route('allProduct.show', "$specialCard->slug") }}" class="btn">Shop
+                                    Now</a>
                             </div>
                         </div>
                     </div>
@@ -239,7 +240,8 @@
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a
+                                        href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>
@@ -258,7 +260,8 @@
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a
+                                        href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>
@@ -277,7 +280,8 @@
                             </div>
                             <div class="list-info">
                                 <h3>
-                                    <a href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
+                                    <a
+                                        href="{{ route('allProduct.show', "$product->slug") }}">{{ $product->name }}</a>
                                 </h3>
                                 <span>{{ currency($product->price) }}</span>
                             </div>

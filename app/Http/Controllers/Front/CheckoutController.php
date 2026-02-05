@@ -20,12 +20,17 @@ class CheckoutController extends Controller
 {
     public function create(CartRepositoryInterface $cart, Request $request)
     {
-        if ($request->coupon) {
-            $value = coupon::where('name', "$request->coupon")->first();
+        if ($request->filled('coupon')) {
+            $coupon = Coupon::where('name', $request->coupon)->first();
+            if ($coupon === null) {
+                session()->forget(['coupon', 'discount']);
+            }
             session([
-                'coupon' => $value->name,
-                'discount' => $value->value,
+                'coupon'   => $coupon ? $coupon->name : null,
+                'discount' => $coupon ? $coupon->value : 0,
             ]);
+        } else {
+            session()->forget(['coupon', 'discount']);
         }
         $discount = session('discount', 0);
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Crypt;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -25,6 +26,10 @@ class User extends Authenticatable  implements MustVerifyEmail // add this for m
         'name',
         'email',
         'password',
+        'provider',
+        'provider_id',
+        'provider_token',
+        'email_verified_at',
     ];
 
     /**
@@ -39,7 +44,9 @@ class User extends Authenticatable  implements MustVerifyEmail // add this for m
         'updated_at',
         'two_factor_confirmed_at',
         'two_factor_recovery_codes',
-        'two_factor_secret'
+        'two_factor_secret',
+        'provider_token',
+
     ];
 
     /**
@@ -56,6 +63,7 @@ class User extends Authenticatable  implements MustVerifyEmail // add this for m
         ];
     }
 
+    // Scopes
     public function ScopeFilter(Builder $builder, $Filters)
     {
         $builder->when($Filters['name'] ?? false, function ($builder, $value) {
@@ -64,5 +72,16 @@ class User extends Authenticatable  implements MustVerifyEmail // add this for m
         $builder->when($Filters['name'] ?? false, function ($builder, $value) {
             $builder->orWhere('Users.email', 'LIKE', "$value");
         });
+    }
+
+    // Accessors & Mutators
+    public function setProviderTokenAttribute($value)
+    {
+        $this->attributes['provider_token'] = Crypt::encryptString($value);
+    }
+
+    public function getProviderTokenAttribute($value)
+    {
+        return Crypt::decryptString($value);
     }
 }

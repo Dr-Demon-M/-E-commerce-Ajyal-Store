@@ -77,7 +77,7 @@
                         <div class="top-middle">
                             <ul class="useful-links">
                                 <li><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-                                <li><a href="#">{{ __('About us') }}</a></li>
+                                <li><a href="{{ route('about-us') }}">{{ __('About us') }}</a></li>
                                 <li><a href="#">{{ __('Contact us') }}</a></li>
                             </ul>
                         </div>
@@ -93,7 +93,7 @@
                                     </button>
                                     <ul class="user-login">
                                         <li><a href="{{ route('profile.edit') }}">Show Profile</a></li>
-                                        <li><a href="{{ route('user-orders.index') }}">My Orders</a></li>
+                                        <li><a href="{{ route('user.orders.index') }}">My Orders</a></li>
                                         <li>
                                             <a href="{{ route('2fa') }}">2FA</a>
                                         </li>
@@ -297,7 +297,28 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    @if (session()->has('success'))
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        Command: toastr["success"]("Product Add To Cart Successfully", "Product Added !")
+    </script>
+    @endif
     @stack('scripts')
     @vite(['resources/js/app.js'])
 

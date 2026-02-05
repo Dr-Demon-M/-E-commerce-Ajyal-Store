@@ -35,7 +35,8 @@ Route::middleware('guest:web')->group(function () {
         ->name('user.password.store');
 });
 
-Route::get('user/verify-email', [EmailVerificationPromptController::class, '__invoke'])
+Route::view('user/verify-email', 'Front.auth.verify-email')
+    ->middleware('auth')
     ->name('user.verification.notice');
 
 Route::get('user/verify-email/{id}/{hash}', [VerifyEmailController::class, 'verify'])

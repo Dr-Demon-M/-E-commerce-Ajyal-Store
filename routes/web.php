@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\front\CheckoutController;
@@ -19,6 +20,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     require __DIR__ . '/dashboard.php';
 
     // Product
+    Route::get('/products/all', [ProductController::class, 'allProduct'])->name('allProducts');
     Route::get('/products/{category:slug}', [ProductController::class, 'index'])->name('allProducts.index');
     Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('allProduct.show');
 
@@ -28,7 +30,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
     // Checkout
-    Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout');
+    Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout')->middleware('auth', 'verified');
     Route::post('checkout', [CheckoutController::class, 'store']);
 
 
@@ -52,8 +54,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('converter', [CurrencyConverterController::class, 'store'])->name('converter.store');
 
 
-    // order 
-    Route::resource('user/orders', OrderController::class)->names('user-orders');
+    // orders 
+    Route::resource('user/orders', OrderController::class)->names('user.orders');
+
+
+    // About us 
+    Route::view('/about-us', 'Front.about-us')->name('about-us');
+
+
+    // Social Auth
+    Route::get('/auth/redirect/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
+    Route::get('/auth/callback/{provider}', [SocialAuthController::class, 'callback'])->name('social.callback');
 
     require __DIR__ . '/auth.php';
     require __DIR__ . '/UserAuth.php';
