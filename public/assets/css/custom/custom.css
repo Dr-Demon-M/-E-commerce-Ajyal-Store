@@ -126,3 +126,194 @@
     background-color: #ffc107 !important; 
     color: #000 !important;
 }
+
+.payment-buttons-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.payment-buttons-vertical .btn {
+    width: 100%;
+}
+
+.btn-cod {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.btn-cod:hover,
+.btn-cod:focus {
+    background-color: #23923d !important;
+    border-color: #23923d !important;
+    color: #fff !important;
+}
+
+.btn-visa {
+    background-color: #0057ff !important;
+    border-color: #0057ff !important;
+    color: #fff !important;
+}
+
+.btn-visa:hover,
+.btn-visa:focus {
+    background-color: #004ad9 !important;
+    border-color: #004ad9 !important;
+    color: #fff !important;
+}
+
+.alert {
+    opacity: 1 !important;
+}
+
+.bg-light-alt {
+    background-color: #fcfcfc;
+}
+
+.input-group-text {
+    border-radius: 6px 0 0 6px;
+}
+
+.form-control {
+    border-radius: 0 6px 6px 0;
+}
+
+#apply-coupon:hover {
+    background-color: #0167F3;
+    border-color: #0167F3;
+    transform: translateY(-1px);
+}
+
+#coupon-message.success {
+    color: #28a745;
+}
+
+#coupon-message.error {
+    color: #dc3545;
+}
+
+.hover-shadow-sm:hover {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+    background: #fdfdfd;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+.hover-primary:hover {
+    color: #0167F3 !important;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.hover-scale:hover {
+    transform: scale(1.2);
+}
+
+.shadow-xs {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+        .checkout-steps-form-style-1 ul li {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.checkout-steps-form-style-1 .title {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+.checkout-steps-form-style-1 .title:not(.collapsed) {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    color: var(--primary-color, #007bff);
+}
+
+.single-form.form-default .form-input input,
+.single-form.form-default .form-input select {
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #e5e5e5;
+    padding-left: 20px;
+    transition: all 0.3s;
+}
+.single-form.form-default .form-input input:focus {
+    border-color: var(--primary-color, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+
+.payment-option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    color: #333;
+}
+.payment-option-btn:hover {
+    border-color: var(--primary-color, #007bff);
+    background-color: #fdfdfd;
+}
+.payment-option-btn i {
+    font-size: 24px;
+    color: #777;
+}
+.payment-option-btn:focus {
+    border-color: var(--primary-color, #007bff);
+    outline: none;
+}
+
+.checkout-sidebar {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 20px;
+}
+.checkout-sidebar-price-table .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.total-payable {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed #eee;
+}
+.total-payable .price {
+    font-size: 24px;
+    color: var(--primary-color, #007bff);
+    font-weight: 700;
+}
+
+        .hover-row:hover { background-color: #f9f9f9 !important; }
+        .transition-all { transition: all 0.2s ease-in-out; }
+        .hover-primary:hover { color: #0167F3 !important; }
+        .fw-600 { font-weight: 600; }
+        .hover-scale:hover { transform: scale(1.1); }
+        .shadow-xs { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .cart-summary { position: sticky; top: 20px; }

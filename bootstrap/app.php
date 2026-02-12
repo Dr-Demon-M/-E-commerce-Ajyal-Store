@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AbilityMiddleware;
 use App\Http\Middleware\CheckUserType;
+use App\Http\Middleware\EnsureEmailVerified;
 use App\Http\Middleware\MarkNotificationsAsRead;
 use App\Http\Middleware\SetAppLocale;
 use App\Http\Middleware\UserActiveAt;
@@ -41,11 +42,18 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
             'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
             'ability.auto'            => AbilityMiddleware::class,
+            'verified.custom'         => EnsureEmailVerified::class,
+
         ]);
         $middleware->web([
             UserActiveAt::class, // route in web تشتغل علي طول مع اي 
             MarkNotificationsAsRead::class,
             // SetAppLocale::class,
+        ]);
+        $middleware->validateCsrfTokens(except: [
+            'create-checkout-session',
+            'stripe/webhook',
+            'checkout',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

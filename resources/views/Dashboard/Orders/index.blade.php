@@ -29,7 +29,7 @@
                         <option value="processing" @selected(request('status') == 'processing')>Processing</option>
                         <option value="delivering" @selected(request('status') == 'delivering')>Delivering</option>
                         <option value="completed" @selected(request('status') == 'completed')>Completed</option>
-                        <option value="cancelled" @selected(request('status') == 'cancelled')>Cancelled</option>
+                        <option value="canceled" @selected(request('status') == 'canceled')>Canceled</option>
                         <option value="refunded" @selected(request('status') == 'refunded')>Refunded</option>
                     </select>
                 </div>
@@ -61,7 +61,7 @@
                         @forelse ($orders as $order)
                             <tr>
                                 <td class="text-muted">
-                                    {{ $order->shippingAddress->name }}
+                                    {{ $order->shippingAddress->name ?? 'N/A'}}
                                 </td>
                                 <td>
                                     <form action="{{ route('orders.update', $order->id) }}" method="POST"
@@ -77,7 +77,7 @@
                                             <option value="processing" @selected($order->status == 'processing')>Processing</option>
                                             <option value="delivering" @selected($order->status == 'delivering')>Delivering</option>
                                             <option value="completed" @selected($order->status == 'completed')>Completed</option>
-                                            <option value="cancelled" @selected($order->status == 'cancelled')>Cancelled</option>
+                                            <option value="canceled" @selected($order->status == 'canceled')>Cancelled</option>
                                             <option value="refunded" @selected($order->status == 'refunded')>Refunded</option>
                                         </select>
                                     </form>

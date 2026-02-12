@@ -14,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())->paginate(5);
+        $orders = Order::where('user_id', auth()->id())->paginate(10);
         return view('Front.orders.user-orders', compact('orders'));
     }
 
@@ -65,5 +65,22 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function cancel(Order $order)
+    {
+        if ($order->status == 'pending') {
+            $order->status = 'canceled';
+            $order->save();
+
+            foreach ($order->products as $product) {
+                $product->quantity += $product->order_item->quantity;
+                $product->save();
+            }
+
+            return redirect()->route('user.orders.index')->with('error', 'Order canceled successfully.');
+        }
+
+        return redirect()->route('user.orders.index')->with('error', 'Only pending orders can be canceled.');
     }
 }

@@ -72,6 +72,11 @@ class Order extends Model
             ->where('type', '=', 'shipping');
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
 
     // Badge Colour
     public function StatusBadgeClass(): string
@@ -81,7 +86,7 @@ class Order extends Model
             'processing' => 'bg-primary text-white', // Processing = أزرق
             'delivering' => 'bg-info text-white',    // Delivering = سماوي
             'completed' => 'bg-success text-white',  // Completed = أخضر
-            'cancelled' => 'bg-danger text-white',   // Cancelled = أحمر
+            'canceled' => 'bg-danger text-white',   // Cancelled = أحمر
             'refunded' => 'bg-secondary text-white', // Refunded = رمادي
             default => '',
         };

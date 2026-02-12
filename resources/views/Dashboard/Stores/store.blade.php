@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 @if ($errors->any())
                     <div class="alert alert-light border-left border-danger shadow-sm mb-4" role="alert"
-                        style="border-left: 5px solid #dc3545 !important;">
+                        style="border-left: 5px solid #dc3545 !important; opacity: 1 !important;">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-exclamation-circle text-danger mr-3 fa-2x"></i>
                             <div>

@@ -3,6 +3,9 @@
     <x-slot:breadcrumb>
         <div class="breadcrumbs">
             <div class="container">
+                <div>
+                    <x-alert />
+                </div>
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
@@ -12,7 +15,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li><a href="{{ route('user-orders.index') }}">Orders</a></li>
+                            <li><a href="{{ route('user.orders.index') }}">Orders</a></li>
                             <li>Details</li>
                         </ul>
                     </div>
@@ -100,7 +103,8 @@
                             <div class="mb-3">
                                 <label class="x-small text-muted d-block mb-1" style="font-size: 0.7rem;">Order
                                     Status</label>
-                                <span class="badge rounded-pill {{ $order->StatusBadgeClass() }} text-dark px-3 py-1 shadow-sm"
+                                <span
+                                    class="badge rounded-pill {{ $order->StatusBadgeClass() }} text-dark px-3 py-1 shadow-sm"
                                     style="font-size: 0.75rem;">
                                     <i class="lni lni-timer me-1"></i> {{ ucfirst($order->status) }}
                                 </span>
@@ -109,17 +113,30 @@
                             <div class="mb-3">
                                 <label class="x-small text-muted d-block mb-1" style="font-size: 0.7rem;">Payment
                                     Status</label>
-                                <span class="{{ $order->paymentColor() }} fw-bold small"><i class="lni lni-warning me-1"></i>
+                                <span class="{{ $order->paymentColor() }} fw-bold small"><i
+                                        class="lni lni-warning me-1"></i>
                                     {{ ucfirst($order->payment_status) }}</span>
                             </div>
 
-                            <div>
+                            <div class="mb-4">
                                 <label class="x-small text-muted d-block mb-1" style="font-size: 0.7rem;">Payment
                                     Method</label>
                                 <span class="text-dark fw-bold small"><i
                                         class="lni lni-credit-cards me-2 text-primary"></i>
                                     {{ strtoupper($order->payment_method) }}</span>
                             </div>
+
+                            @if ($order->status == 'pending')
+                                <div class="border-top pt-3">
+                                    <form action="{{ route('user.orders.cancel', $order->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 shadow-sm">
+                                            <i class="lni lni-close me-2"></i> Cancel Order
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -130,7 +147,7 @@
 
                             <div class="customer-info mb-3">
                                 <p class="fw-bold mb-1 text-primary small">
-                                    {{ $order->shippingAddress->name}}</p>
+                                    {{ $order->shippingAddress->name }}</p>
                                 <p class="mb-1 text-dark x-small" style="font-size: 0.8rem;"><i
                                         class="lni lni-envelope me-2"></i>{{ $order->shippingAddress->email ?? 'N/A' }}
                                 </p>

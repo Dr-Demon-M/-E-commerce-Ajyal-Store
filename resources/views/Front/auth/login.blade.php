@@ -1,5 +1,4 @@
 <x-front-layout title="Login">
-
     <!-- Start Account Login Area -->
     <div class="account-login section">
         <div class="container">
@@ -8,9 +7,6 @@
                     <form class="card login-form" action="{{ route('user.login') }}" method="post">
                         @csrf
                         <div class="card-body">
-                            <div>
-                                <x-dashboard.error />
-                            </div>
                             <div class="title">
                                 <h3>Login Now</h3>
                                 <p>You can login using your social media account or email address.</p>
@@ -31,7 +27,7 @@
                                 <span>Or</span>
                             </div>
                             @if ($errors->has(config('fortify.username')))
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger !important" role="alert">
                                     {{ $errors->first(config('fortify.username')) }}
                                 </div>
                             @endif
@@ -65,30 +61,5 @@
         </div>
     </div>
     <!-- End Account Login Area -->
-    @push('scripts')
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId: env('FACEBOOK_APP_ID'),
-                    cookie: true,
-                    xfbml: true,
-                    version: 'v17.0'
-                });
 
-                FB.AppEvents.logPageView();
-
-            };
-
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-    @endpush
 </x-front-layout>

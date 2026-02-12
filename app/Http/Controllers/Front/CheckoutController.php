@@ -9,47 +9,35 @@ use App\Models\coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\CartRepositoryInterface;
+use App\Services\CheckoutService;
+use App\Services\CouponService;
+use App\Services\LocationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use League\Config\Exception\ValidationException;
 use Symfony\Component\Intl\Countries;
 use Throwable;
 
 class CheckoutController extends Controller
 {
-    public function create(CartRepositoryInterface $cart, Request $request)
+    public function create(CartRepositoryInterface $cart, Request $request, CouponService $couponService, LocationService $locationService)
     {
-        if ($request->filled('coupon')) {
-            $coupon = Coupon::where('name', $request->coupon)->first();
-            if ($coupon === null) {
-                session()->forget(['coupon', 'discount']);
-            }
-            session([
-                'coupon'   => $coupon ? $coupon->name : null,
-                'discount' => $coupon ? $coupon->value : 0,
-            ]);
-        } else {
-            session()->forget(['coupon', 'discount']);
+
+        $discount = 0;
+
+        if (session()->has('coupon_code')) {
+            $discount = $couponService->apply(
+                session('coupon_code'),
+                $cart,
+                auth()->user()
+            );
         }
-        $discount = session('discount', 0);
-
-        $json = json_decode(
-            file_get_contents(storage_path('app/data/cities.json')),
-            true
-        );
-        $allCities = collect($json)->firstWhere('type', 'table')['data'];
-        $cities = collect($allCities)->pluck('city_name_en')->sort()->values();
-
-        $json2 = json_decode(
-            file_get_contents(storage_path('app/data/governorates.json')),
-            true
-        );
-        $allGover = collect($json2)->firstWhere('type', 'table')['data'];
-        $governorate = collect($allGover)->pluck('governorate_name_en')->sort()->values();
+        $cities = $locationService->cities();
+        $governorate = $locationService->governorates();
 
         if ($cart->get()->isEmpty()) {
-            // return redirect()->route('home');
             throw new CheckOutException('Cart is empty');
         }
 
@@ -63,58 +51,73 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request, CartRepositoryInterface $cart)
+    public function store(Request $request, CartRepositoryInterface $cart, CheckoutService $checkoutService)
     {
         $request->validate([]);
-        $carts = $cart->get()->groupBy('product.store_id')->all();
-        DB::beginTransaction();
-        try {
-            foreach ($carts as $store_id => $cart_item) {
-                $discount = session('discount', 0);
+        $orders = $checkoutService->createOrders($request, $cart);
 
-                $order = Order::create([
-                    'store_id' => $store_id,
-                    'user_id' => Auth::id(),
-                    'payment_method' => 'cod',
-                    'discount' => $discount,
-                ]);
-                $subtotal = 0;
-                $discount = session('discount', 0);
-                foreach ($cart_item as $item) {
-                    OrderItem::create([
-                        'order_id' => $order->id,
-                        'product_id' => $item->product->id,
-                        'product_name' => $item->product->name,
-                        'price' => $item->product->price,
-                        'quantity' => $item->quantity,
-                    ]);
-                    $subtotal += ($item->product->price * $item->quantity); // 6000 
-                }
-                $order->update([
-                    'total' => max(0, $subtotal - $discount),
-                ]);
-
-                $addresses = $request->post('address');
-                if ($request->has('same_address')) {
-                    $addresses['shipping'] = $addresses['billing'];
-                }
-                foreach ($addresses as $type => $address) {
-                    $address['type'] = $type;
-                    $order->addresses()->create($address);
-                }
+        /**
+         * COD → finalize immediately
+         * Stripe → redirect to payment
+         */
+        if ($request->payment_method === 'Cod') {
+            foreach ($orders as $order) {
+                $order->update(['payment_status' => 'Pending']);
                 event(new OrderCreated($order));
             }
-
-            DB::commit();
-            $request->session()->forget([
-                'coupon',
-                'discount',
-            ]);
             $cart->empty();
-        } catch (Throwable $e) {
-            DB::rollBack();
-            throw $e;
+            session()->forget(['coupon', 'discount']);
+            return redirect()->route('user.orders.index')->with('success', 'Order placed successfully');
         }
-        return redirect()->route('home');
+
+        // Stripe flow
+        return redirect()->route('stripe.checkout', [
+            'orders' => collect($orders)->pluck('id')->implode(','),
+        ]);
+    }
+
+    public function applyCoupon(Request $request, CouponService $couponService, CartRepositoryInterface $cart)
+    {
+        $request->validate([
+            'coupon' => ['required', 'string'],
+        ]);
+        $coupon = Coupon::where('name', $request->coupon)->first();
+        if (! $coupon) {
+            session()->forget(['coupon_code', 'discount']);
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid coupon',
+            ], 422);
+        }
+        try {
+            $discount = $couponService->apply(
+                $request->coupon,
+                $cart,
+                auth()->user()
+            );
+            session(['coupon_code' => $request->coupon]);
+            $total = max(0, $cart->total() - $discount);
+
+            return response()->json([
+                'success'        => true,
+                'discount_raw'  => $discount,
+                'total_raw'     => $total,
+                'discount'      => currency($discount),
+                'total'         => currency($total),
+            ]);
+        } catch (ValidationException $e) {
+            session()->forget(['coupon_code', 'discount']);
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid coupon',
+            ], 422);
+        } catch (\Throwable $e) {
+            session()->forget(['coupon_code', 'discount']);
+            report($e);
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong, please try again',
+            ], 500);
+        }
     }
 }

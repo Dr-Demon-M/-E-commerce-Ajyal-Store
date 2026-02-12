@@ -8,6 +8,7 @@ use App\Models\coupon;
 use App\Models\Product;
 use App\Repositories\CartRepository;
 use App\Repositories\CartRepositoryInterface;
+use App\Services\CouponService;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -20,21 +21,30 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, CouponService $couponService)
     {
         $cart = $this->cart->get();
         $total = $this->cart->total();
         $discount = 0;
-        if ($request->coupon) {
-            $value = coupon::where('name', "$request->coupon")->first();
-            session([
-                'coupon' => $value->name,
-                'discount' => $value->value,
-            ]);
+
+        if (session()->has('coupon_code')) {
+            try {
+                $discount = $couponService->apply(
+                    session('coupon_code'),
+                    $cart,
+                    auth()->user()
+                );
+            } catch (\Throwable $e) {
+                session()->forget('coupon_code');
+                $discount = 0;
+            }
         }
+
+        // $total = $cart->total();
         return view('front.cart', [
             'cart' => $cart,
             'total' => $total,
+            'discount' => $discount
         ]);
     }
 
@@ -50,7 +60,7 @@ class CartController extends Controller
         $product = Product::findOrFail($request->product_id);
         $quantity = $request->quantity;
         $this->cart->add($product, $quantity);
-        return redirect()->back()->with('success', 'Product Added to Cart Successfully!');
+        return redirect()->back()->with('success-order', 'Product Added to Cart Successfully!');
     }
 
     /**
@@ -78,5 +88,12 @@ class CartController extends Controller
         ]);
 
         return redirect()->route('home');
+    }
+
+    public function checkoutSuccess()
+    {
+        $this->cart->empty();
+        session()->forget(['coupon_code']);
+        return redirect()->route('user.orders.index')->with('success', 'Your order has been placed successfully!');
     }
 }

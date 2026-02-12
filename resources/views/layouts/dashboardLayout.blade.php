@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <style>
+        .alert {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
     @stack('styles') {{-- go to child and make @push('styles') -- code -- @endpush to add something here --}}
 
 

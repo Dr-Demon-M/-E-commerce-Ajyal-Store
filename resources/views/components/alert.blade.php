@@ -10,7 +10,7 @@
                 <strong class="text-success d-block">Success!</strong>
                 <span class="text-secondary small">{{ session('success') }}</span>
             </div>
-            <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close ml-auto" data-bs-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -39,6 +39,20 @@
             <div>
                 <strong class="text-danger d-block">Deleted!</strong>
                 <span class="text-secondary small">{{ session('delete') }}</span>
+            </div>
+            <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-light border-left-danger shadow-sm d-flex align-items-center mb-3 py-3" role="alert"
+            style="border-left: 5px solid #dc3545 !important; border-radius: 8px;">
+            <i class="fas fa-exclamation-triangle text-danger mr-3 fa-lg"></i>
+            <div>
+                <strong class="text-danger d-block">Error!</strong>
+                <span class="text-secondary small">{{ session('error') }}</span>
             </div>
             <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

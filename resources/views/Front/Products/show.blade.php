@@ -61,19 +61,19 @@
                                         <div class="form-group color-option">
                                             <label class="title-label" for="size">Choose color</label>
                                             <div class="single-checkbox checkbox-style-1">
-                                                <input type="checkbox" id="checkbox-1" checked>
+                                                <input type="checkbox" id="checkbox-1" name="options[color]" value="black" checked>
                                                 <label for="checkbox-1"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-2">
-                                                <input type="checkbox" id="checkbox-2">
+                                                <input type="checkbox" id="checkbox-2" name="options[color]" value="blue">
                                                 <label for="checkbox-2"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-3">
-                                                <input type="checkbox" id="checkbox-3">
+                                                <input type="checkbox" id="checkbox-3" name="options[color]" value="red">
                                                 <label for="checkbox-3"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-4">
-                                                <input type="checkbox" id="checkbox-4">
+                                                <input type="checkbox" id="checkbox-4" name="options[color]" value="green">
                                                 <label for="checkbox-4"><span></span></label>
                                             </div>
                                         </div>

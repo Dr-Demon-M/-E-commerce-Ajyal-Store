@@ -78,7 +78,7 @@
                                     @foreach ($lastOrders as $order)
                                         <tr>
                                             <td>#{{ $order->id }}</td>
-                                            <td>{{ $order->shippingAddress->first_name . ' ' . $order->shippingAddress->last_name }}
+                                            <td>{{ $order->shippingAddress->name ?? 'N/A' }}
                                             </td>
                                             <td>{{ currency($order->total, 'EGP') }}</td>
                                             <td><span

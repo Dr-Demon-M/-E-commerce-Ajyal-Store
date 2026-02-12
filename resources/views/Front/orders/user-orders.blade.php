@@ -19,12 +19,15 @@
         </div>
     </x-slot:breadcrumb>
 
+
     <section class="checkout-wrapper section">
         <div class="container">
+            <div>
+                <x-alert />
+            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="checkout-steps-form-style-1">
-
                         @if ($orders->count() > 0)
                             <div class="card border-0 shadow-lg">
                                 <div class="card-body p-4">
@@ -72,7 +75,7 @@
                                                         <td class="fw-bold text-dark">EGP
                                                             {{ number_format($order->total, 2) }}</td>
                                                         <td class="text-center pe-4">
-                                                            <a href="{{ route('user-orders.show', $order->id) }}"
+                                                            <a href="{{ route('user.orders.show', $order->id) }}"
                                                                 class="btn btn-primary btn-sm shadow-sm rounded-pill px-4"
                                                                 style="font-size: 0.85rem;">
                                                                 View Details
