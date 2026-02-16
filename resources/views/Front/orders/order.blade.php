@@ -4,7 +4,7 @@
         <div class="breadcrumbs">
             <div class="container">
                 <div>
-                    <x-alert />
+                    <x-alert2 />
                 </div>
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">

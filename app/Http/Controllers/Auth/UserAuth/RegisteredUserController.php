@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
+        Auth::login($user);
         return redirect()->route('user.verification.notice')
             ->with('success', 'Please verify your email before logging in.');
     }

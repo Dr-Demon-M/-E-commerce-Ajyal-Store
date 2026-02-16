@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index($slug, Request $request) // for all products page
     {
         $categories = Category::all();
-        $stores = Store::all();
+        $stores = Store::where('id','!=',8)->get();
         $products = Category::where('slug', $slug)->firstOrFail()->products()->paginate(10);
         $category = Category::where('slug', $slug)->firstOrFail();
 

@@ -30,7 +30,7 @@
             <x-input-label for="phone_number" :value="__('Phone Number')" class="text-gray-700 dark:text-gray-300" />
             <x-text-input id="phone_number"
                 class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
-                type="text" name="phone_number" :value="old('phone_number')" required />
+                type="number" name="phone_number" :value="old('phone_number')" required />
             <x-input-error :messages="$errors->get('phone_number')" class="mt-1" />
         </div>
 

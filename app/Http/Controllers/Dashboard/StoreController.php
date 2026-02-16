@@ -17,7 +17,7 @@ class StoreController extends Controller
     public function index(Request $request)
     {
         $this->authorize('index', Store::class);
-        $stores = Store::filter($request->query())->paginate(10);
+        $stores = Store::filter($request->query())->where('id','!=', 8)->paginate(10);
         return view('dashboard.stores.index', compact('stores'));
     }
 

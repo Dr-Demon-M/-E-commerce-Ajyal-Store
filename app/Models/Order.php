@@ -86,7 +86,7 @@ class Order extends Model
             'processing' => 'bg-primary text-white', // Processing = أزرق
             'delivering' => 'bg-info text-white',    // Delivering = سماوي
             'completed' => 'bg-success text-white',  // Completed = أخضر
-            'canceled' => 'bg-danger text-white',   // Cancelled = أحمر
+            'cancelled' => 'bg-danger text-white',   // Cancelled = أحمر
             'refunded' => 'bg-secondary text-white', // Refunded = رمادي
             default => '',
         };

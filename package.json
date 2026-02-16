@@ -21,7 +21,9 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "glightbox": "^3.3.1",
         "jquery": "^3.7.1",
+        "tiny-slider": "^2.9.4",
         "toastify-js": "^1.12.0"
     }
 }

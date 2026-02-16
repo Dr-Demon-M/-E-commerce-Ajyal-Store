@@ -15,7 +15,7 @@
     use Illuminate\Support\Facades\Route;
 
     // , 'checkUserType:admin,super-admin'
-    Route::middleware('auth:admin')->prefix('admin/dashboard')->group(function () { // admin-only dashboard
+    Route::middleware('auth:admin', 'verified')->prefix('admin/dashboard')->group(function () { // admin-only dashboard
         // Dashboard
         // Route::get('/dashboard/index',[DashboardController::class, 'index']);
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

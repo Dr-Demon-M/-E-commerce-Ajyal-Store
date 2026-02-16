@@ -230,6 +230,7 @@
                                     <li><a href="javascript:void(0)">Downloads</a></li>
                                     <li><a href="javascript:void(0)">Sitemap</a></li>
                                     <li><a href="javascript:void(0)">FAQs Page</a></li>
+                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->

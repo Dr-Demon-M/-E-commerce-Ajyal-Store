@@ -12,6 +12,8 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('index', Order::class);
+
         $orders = Order::with('products', 'shippingAddress')
             ->filter($request->only('name', 'status'))
             ->paginate(10);

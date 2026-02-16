@@ -1,17 +1,19 @@
 <aside class="main-sidebar sidebar-light-primary elevation-2 border-right">
     <a href="{{ url('/') }}" class="brand-link border-bottom shadow-sm">
-        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-2"
-            style="opacity: .9; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1));">
+        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image "
+            style="opacity: .9; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1)); margin-left: 5px;">
         <span class="brand-text font-weight-bold text-primary">{{ config('app.name') }}</span>
     </a>
 
     <div class="sidebar px-2">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center shadow-sm rounded bg-light p-2">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center shadow-sm rounded bg-light p-2"
+            style="padding-left: 2px !important;">
             <div class="image" style="padding: 0;">
                 <img src="{{ Auth::user()->profile?->image
                     ? asset('storage/' . Auth::user()->profile->image)
                     : asset('dist/img/user2-160x160.jpg') }}"
-                    class="img-circle border border-white elevation-1" alt="User Image" style="width: 3rem;height: 3rem;">
+                    class="img-circle border border-white elevation-1" alt="User Image"
+                    style="width: 3rem;height: 3rem; object-fit: cover;">
             </div>
             <div class="info w-100">
                 <a href="{{ route('dashboard.profile.edit') }}"

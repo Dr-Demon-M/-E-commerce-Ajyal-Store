@@ -23,7 +23,10 @@ class LocationService
             );
 
             $data = collect($json)->firstWhere('type', 'table')['data'];
-            return collect($data)->pluck('city_name_en')->sort()->values();
+            return collect($data)
+                ->pluck('city_name_en')
+                ->sort()
+                ->mapWithKeys(fn($item) => [$item => $item]);
         });
     }
 
@@ -36,7 +39,10 @@ class LocationService
             );
 
             $data = collect($json)->firstWhere('type', 'table')['data'];
-            return collect($data)->pluck('governorate_name_en')->sort()->values();
+            return collect($data)
+                ->pluck('governorate_name_en')
+                ->sort()
+                ->mapWithKeys(fn($item) => [$item => $item]);
         });
     }
 }

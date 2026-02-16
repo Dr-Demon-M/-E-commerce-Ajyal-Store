@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\Admin;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -38,6 +39,7 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             'phone_number' => $input['phone_number'],
             'password' => Hash::make($input['password']),
+            'store_id' => Store::where('id', '8')->value('id'),
         ]);
     }
 }

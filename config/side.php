@@ -46,7 +46,7 @@ return [
         'icon' => 'fas fa-shopping-cart nav-icon',
         'route' => 'orders.index',
         'title' => 'Orders',
-        // 'ability' => 'users.index',
+        'ability' => 'orders.index',
     ],
 
 ];

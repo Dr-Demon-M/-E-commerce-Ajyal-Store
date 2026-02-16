@@ -54,6 +54,15 @@
                             <option value="0" @selected(old('super_admin', $admin->super_admin) == '0')>Normal Admin</option>
                         </select>
                     </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Admin Role</label>
+                        <select name="role" class="form-control form-control-lg  bg-light shadow-none">
+                            <option value="" selected disabled>Choose role...</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role }}" @selected(old('role', $admin->roles->pluck('name')->get(0)) == $role)>{{ ucfirst($role) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
 

@@ -15,6 +15,11 @@ class role extends Model
         return $this->hasMany(RoleAbility::class);
     }
 
+    public function admins()
+    {
+        return $this->morphedByMany(Admin::class, 'authorizable', 'role_user');
+    }
+
     public static function createWithAbilities(Request $request)
     {
         DB::beginTransaction();

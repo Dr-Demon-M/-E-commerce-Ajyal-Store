@@ -26,7 +26,7 @@
                 <div class="col-lg-9">
                     <div class="checkout-steps-form-style-1">
                         <div class="card mb-4 border-0 shadow-sm">
-                            <x-alert />
+                            <x-alert2 />
                             <div class="card-body p-4">
                                 @include('Front.profile.partials.update-profile-information-form')
                             </div>

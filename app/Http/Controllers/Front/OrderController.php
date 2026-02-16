@@ -70,7 +70,7 @@ class OrderController extends Controller
     public function cancel(Order $order)
     {
         if ($order->status == 'pending') {
-            $order->status = 'canceled';
+            $order->status = 'cancelled';
             $order->save();
 
             foreach ($order->products as $product) {

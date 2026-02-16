@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
+use App\Models\role;
+use App\Models\RoleAbility;
+use App\Models\RoleUser;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -61,11 +64,12 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-
+        $roles = role::pluck('name');
         $stores = Store::pluck('name', 'id');
         return view('dashboard.admins.edit', [
             'admin' => $admin,
             'stores' => $stores,
+            'roles' => $roles
         ]);
     }
 
@@ -77,12 +81,28 @@ class AdminController extends Controller
         $data = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:admins,email,' . $id,
-            'phone_number' => 'sometimes|string|max:20',
-            'store_id' => 'sometimes|exists:stores,id',
+            'phone_number' => 'sometimes|string|max:255',
+            'store_id' => 'nullable|exists:stores,id',
             'username'     => 'sometimes|string|max:255|unique:admins,username,' . $id,
             'status'       => 'sometimes|in:active,inactive',
             'super_admin' => 'sometimes|boolean',
         ]);
+        $roleId = Role::where('name', $request->input('role'))->value('id');
+
+        if (! $roleId) {
+            abort(404, 'Role not found');
+        }
+
+        $role = RoleUser::updateOrCreate(
+            [
+                'authorizable_id'   => $id,
+                'authorizable_type' => Admin::class,
+            ],
+            [
+                'role_id' => $roleId,
+            ]
+        );
+
         $admin = Admin::findOrFail($id);
         $admin->update($data);
         return redirect()->route('admins.index')->with('update', "Admin Updated Successfully");

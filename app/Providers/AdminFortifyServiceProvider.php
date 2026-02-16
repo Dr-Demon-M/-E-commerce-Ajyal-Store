@@ -36,8 +36,8 @@ class AdminFortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 if ($request->user('admin')) { // admin refer for guard
-                    // return redirect()->route('admin/dashboard');
-                    return redirect()->intended('admin/dashboard'); // This means it returns to the page they were trying to access
+                    return redirect()->route('admin/dashboard');
+                    // return redirect()->intended('admin/dashboard'); // This means it returns to the page they were trying to access
                 }
                 return redirect()->route('home');
             }

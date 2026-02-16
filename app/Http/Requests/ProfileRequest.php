@@ -26,12 +26,11 @@ class ProfileRequest extends FormRequest
             'last_name'  => ['required', 'string', 'max:255'],
             'birthday'   => ['nullable', 'date', 'before:today'],
             'gender'     => ['required','in:male,female'],
-            'country'    => ['required', 'string', 'size:2'],
-            'locale'     => ['required', 'string', 'max:5'],
+            'governorate'    => ['required', 'string'],
             'street_address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
             'postal_code' => ['nullable', 'string', 'max:20'],
+            'image' => ['nullable', 'image', 'max:4096'], // max 4MB
         ];
     }
 }

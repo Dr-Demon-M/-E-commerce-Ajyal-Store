@@ -23,7 +23,7 @@
     <section class="checkout-wrapper section">
         <div class="container">
             <div>
-                <x-alert />
+                <x-alert2 />
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-12">

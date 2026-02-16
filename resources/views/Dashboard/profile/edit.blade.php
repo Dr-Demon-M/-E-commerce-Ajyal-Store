@@ -62,19 +62,11 @@
                             </div>
                             <div class="card-body p-4">
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <x-form.input name="street_address" label="Street Address" :value="$user->profile->street_address"
                                             class="bg-light border-0 shadow-none" />
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <x-form.input name="state" label="State" :value="$user->profile->state"
-                                            class="bg-light border-0 shadow-none" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <x-form.input name="city" label="City" :value="$user->profile->city"
-                                            class="bg-light border-0 shadow-none" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <x-form.input name="postal_code" label="Postal Code" :value="$user->profile->postal_code"
                                             class="bg-light border-0 shadow-none" />
                                     </div>
@@ -90,11 +82,11 @@
                             <div class="card-body p-4">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <x-form.select name="country" label="Country" :selected="$user->profile->country" :options="$countries"
+                                        <x-form.select name="governorate" label="Governorate" :selected="$user->profile->governorate" :options="$governorates"
                                             class="bg-light border-0 shadow-none" />
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <x-form.select name="locale" label="Locale" :selected="$user->profile->locale" :options="$locale"
+                                        <x-form.select name="city" label="City" :selected="$user->profile->city" :options="$cities"
                                             class="bg-light border-0 shadow-none" />
                                     </div>
                                 </div>

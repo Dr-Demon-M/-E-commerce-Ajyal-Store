@@ -27,11 +27,10 @@
                     </div>
 
                     <x-dashboard.error />
-
                     <form action="{{ route('admins.update', $admin->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        @include('Dashboard.Admins._form');
+                        @include('Dashboard.Admins._form')
                     </form>
                 </div>
             </div>

@@ -25,6 +25,7 @@ class Admin extends User implements MustVerifyEmail
         'super_admin',
         'status',
         'store_id',
+        'role'
     ];
 
     protected $hidden = [
@@ -44,6 +45,11 @@ class Admin extends User implements MustVerifyEmail
     {
         return $this->hasOne(Profile::class, 'user_id', 'id')
             ->withDefault();
+    }
+
+    public function roles()
+    {
+        return $this->morphToMany(Role::class, 'authorizable', 'role_user');
     }
 
     public function ScopeFilter(Builder $builder, $Filters)
