@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        URL::forceScheme('https');
+        // URL::forceScheme('https');
         Authenticate::redirectUsing(function ($request) {
             if ($request->is('admin/*')) {
                 return route('login');

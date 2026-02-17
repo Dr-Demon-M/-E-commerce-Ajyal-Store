@@ -421,7 +421,7 @@
                 let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
                 let seconds = Math.floor(diff % (1000 * 60) / 1000);
 
-                days <= 99 ? days = `0${days}` : days;
+                days <= 99 ? days = `${days}` : days;
                 days <= 9 ? days = `00${days}` : days;
                 hours <= 9 ? hours = `0${hours}` : hours;
                 minutes <= 9 ? minutes = `0${minutes}` : minutes;

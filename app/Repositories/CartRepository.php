@@ -43,6 +43,7 @@ class CartRepository  implements CartRepositoryInterface
             'user_id' => Auth::id(),
             'product_id' => $product->id,
             'quantity' => $quantity ?? 1,
+            'color' => $options['color'] ?? null,
         ]);
         $this->get()->push($new);
     }

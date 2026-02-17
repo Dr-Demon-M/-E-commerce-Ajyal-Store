@@ -53,9 +53,12 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'product_id' => 'required|integer|exists:products,id',
-            'quantity' => 'nullable|integer|min:1'
+            'quantity' => 'nullable|integer|min:1',
+            'options.color'   => 'required|array|min:1',
+            'options.color.*' => 'in:black,blue,red,green',
         ]);
         $product = Product::findOrFail($request->product_id);
         $quantity = $request->quantity;

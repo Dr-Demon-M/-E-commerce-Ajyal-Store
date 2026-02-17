@@ -61,42 +61,36 @@
                                         <div class="form-group color-option">
                                             <label class="title-label" for="size">Choose color</label>
                                             <div class="single-checkbox checkbox-style-1">
-                                                <input type="checkbox" id="checkbox-1" name="options[color]" value="black" checked>
+                                                <input type="checkbox" id="checkbox-1" name="options[color][]"
+                                                    value="black" checked>
                                                 <label for="checkbox-1"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-2">
-                                                <input type="checkbox" id="checkbox-2" name="options[color]" value="blue">
+                                                <input type="checkbox" id="checkbox-2" name="options[color][]"
+                                                    value="blue">
                                                 <label for="checkbox-2"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-3">
-                                                <input type="checkbox" id="checkbox-3" name="options[color]" value="red">
+                                                <input type="checkbox" id="checkbox-3" name="options[color][]"
+                                                    value="red">
                                                 <label for="checkbox-3"><span></span></label>
                                             </div>
                                             <div class="single-checkbox checkbox-style-4">
-                                                <input type="checkbox" id="checkbox-4" name="options[color]" value="green">
+                                                <input type="checkbox" id="checkbox-4" name="options[color][]"
+                                                    value="green">
                                                 <label for="checkbox-4"><span></span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <label for="color">Battery capacity</label>
-                                            <select class="form-control" id="color">
-                                                <option>5100 mAh</option>
-                                                <option>6200 mAh</option>
-                                                <option>8000 mAh</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>
-                                            <select class="form-control" name="quantity">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" id="quantity" name="quantity">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                         </div>
                                     </div>
@@ -109,18 +103,6 @@
                                                     Cart</button>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-12">
-                                            <div class="wish-button">
-                                                <button class="btn"><i class="lni lni-reload"></i>
-                                                    Compare</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12">
-                                            <div class="wish-button">
-                                                <button class="btn"><i class="lni lni-heart"></i> To
-                                                    Wishlist</button>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -130,6 +112,7 @@
             </div>
             <div class="product-details-info">
                 <div class="single-block">
+                    {{--
                     <div class="row">
                         <div class="col-lg-6 col-12">
                             <div class="info-body custom-responsive-margin">
@@ -165,129 +148,130 @@
                             </div>
                         </div>
                     </div>
+                    --}}
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-12">
-                        <div class="single-block give-review">
-                            <h4>4.5 (Overall)</h4>
-                            <ul>
-                                <li>
-                                    <span>5 stars - 38</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                </li>
-                                <li>
-                                    <span>4 stars - 10</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>3 stars - 3</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>2 stars - 1</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>1 star - 0</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                            </ul>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn review-btn" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                Leave a Review
-                            </button>
-                        </div>
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="single-block give-review">
+                        <h4>4.5 (Overall)</h4>
+                        <ul>
+                            <li>
+                                <span>5 stars - 38</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                            </li>
+                            <li>
+                                <span>4 stars - 10</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>3 stars - 3</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>2 stars - 1</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>1 star - 0</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                        </ul>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn review-btn" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Leave a Review
+                        </button>
                     </div>
-                    <div class="col-lg-8 col-12">
-                        <div class="single-block">
-                            <div class="reviews">
-                                <h4 class="title">Latest Reviews</h4>
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>Awesome quality for the price
-                                            <span>Jacob Hammond
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
+                </div>
+                <div class="col-lg-8 col-12">
+                    <div class="single-block">
+                        <div class="reviews">
+                            <h4 class="title">Latest Reviews</h4>
+                            <!-- Start Single Review -->
+                            <div class="single-review">
+                                <img src="https://via.placeholder.com/150x150" alt="#">
+                                <div class="review-info">
+                                    <h4>Awesome quality for the price
+                                        <span>Jacob Hammond
+                                        </span>
+                                    </h4>
+                                    <ul class="stars">
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                    </ul>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        tempor...</p>
                                 </div>
-                                <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>My husband love his new...
-                                            <span>Alex Jaza
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>I love the built quality...
-                                            <span>Jacob Hammond
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
                             </div>
+                            <!-- End Single Review -->
+                            <!-- Start Single Review -->
+                            <div class="single-review">
+                                <img src="https://via.placeholder.com/150x150" alt="#">
+                                <div class="review-info">
+                                    <h4>My husband love his new...
+                                        <span>Alex Jaza
+                                        </span>
+                                    </h4>
+                                    <ul class="stars">
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star"></i></li>
+                                    </ul>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        tempor...</p>
+                                </div>
+                            </div>
+                            <!-- End Single Review -->
+                            <!-- Start Single Review -->
+                            <div class="single-review">
+                                <img src="https://via.placeholder.com/150x150" alt="#">
+                                <div class="review-info">
+                                    <h4>I love the built quality...
+                                        <span>Jacob Hammond
+                                        </span>
+                                    </h4>
+                                    <ul class="stars">
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                        <li><i class="lni lni-star-filled"></i></li>
+                                    </ul>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        tempor...</p>
+                                </div>
+                            </div>
+                            <!-- End Single Review -->
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- End Item Details -->
